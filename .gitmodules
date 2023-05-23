@@ -1,0 +1,3 @@
+[submodule "wp-tarteaucitron/tarteaucitron.js"]
+	path = wp-tarteaucitron/tarteaucitron.js
+	url = https://github.com/AmauriC/tarteaucitron.js
