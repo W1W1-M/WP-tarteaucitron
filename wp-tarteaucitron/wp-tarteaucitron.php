@@ -24,7 +24,7 @@
  * Domain Path:          /languages
  */
 
-const WP_TARTEAUCITRON_PACKAGE_FOLDER = 'tarteaucitron.js/';
+const WP_TARTEAUCITRON_PACKAGE_DIRECTORY_PATH = __DIR__ . '/tarteaucitron.js/';
 
 wp_tarteaucitron_setup();
 
@@ -78,7 +78,7 @@ function wp_tarteaucitron_scripts(): void {
 		echo $exception->getMessage();
 		$tarteaucitron_version = false;
 	}
-	wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_FOLDER . 'tarteaucitron.js' ), array(), $tarteaucitron_version );
+	wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_DIRECTORY_PATH . 'tarteaucitron.js' ), array(), $tarteaucitron_version );
 }
 
 /**
@@ -89,7 +89,7 @@ function wp_tarteaucitron_scripts(): void {
  * @return string
  */
 function wp_tarteaucitron_script_version(): string {
-    $tarteaucitron_package_json_path = plugin_dir_path( '__FILE__' ) . WP_TARTEAUCITRON_PACKAGE_FOLDER . 'package.json';
+    $tarteaucitron_package_json_path = WP_TARTEAUCITRON_PACKAGE_DIRECTORY_PATH . 'package.json';
     if( file_exists( $tarteaucitron_package_json_path ) ) {
         $tarteaucitron_package_json = file_get_contents( $tarteaucitron_package_json_path );
         $decoded_tarteaucitron_package_json = json_decode( $tarteaucitron_package_json, false );
