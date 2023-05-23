@@ -1,5 +1,8 @@
 # GitLab CI/CD configuration file https://docs.gitlab.com/ee/ci/yaml/gitlab_ci_yaml.html
 
+variables:
+  GIT_SUBMODULE_STRATEGY: normal
+
 stages:
   - package
   - release
