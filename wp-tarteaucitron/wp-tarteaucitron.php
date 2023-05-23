@@ -93,7 +93,7 @@ function wp_tarteaucitron_script_version(): string {
     if( file_exists( $tarteaucitron_package_json_path ) ) {
         $tarteaucitron_package_json = file_get_contents( $tarteaucitron_package_json_path );
         $decoded_tarteaucitron_package_json = json_decode( $tarteaucitron_package_json, false );
-        if ( array_key_exists('version', $decoded_tarteaucitron_package_json ) ) {
+        if ( property_exists( $decoded_tarteaucitron_package_json, 'version' ) ) {
             return $decoded_tarteaucitron_package_json->version;
         } else {
 	        throw new Exception( 'tarteaucitron package version not found' );
