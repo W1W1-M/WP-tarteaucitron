@@ -77,6 +77,7 @@ function wp_tarteaucitron_scripts(): void {
 		$tarteaucitron_version = false;
 	}
 	wp_enqueue_script( 'tarteaucitron_js', wp_tarteaucitron_package_directory_path() . 'tarteaucitron.js' , array(), $tarteaucitron_version );
+	wp_enqueue_script( 'tarteaucitron_script_js', './tarteaucitron-script.js' , array() );
 }
 
 /**
