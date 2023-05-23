@@ -78,7 +78,7 @@ function wp_tarteaucitron_scripts(): void {
 		echo $exception->getMessage();
 		$tarteaucitron_version = false;
 	}
-	wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_DIRECTORY_PATH . 'tarteaucitron.js' ), array(), $tarteaucitron_version );
+	wp_enqueue_script( 'tarteaucitron_js', WP_TARTEAUCITRON_PACKAGE_DIRECTORY_PATH . 'tarteaucitron.js' , array(), $tarteaucitron_version );
 }
 
 /**
