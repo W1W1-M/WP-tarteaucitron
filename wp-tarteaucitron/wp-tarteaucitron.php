@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpRedundantClosingTagInspection */
 
 /**
  * WP-tarteaucitron
@@ -12,7 +12,7 @@
  * @wordpress-plugin
  * Plugin Name:          WP-tarteaucitron
  * Plugin URI:           https://git.manche.io/si/web/wptarteaucitron
- * Description:          Plugin to manage cookies with tarteaucitron js script
+ * Description:          Plugin to manage cookies with tarteaucitron.js
  * Version:              1.0.0
  * Requires at least:    5.9.5
  * Requires PHP:         7.4.33
@@ -24,8 +24,10 @@
  * Domain Path:          /languages
  */
 
+const WP_TARTEAUCITRON_PACKAGE_FOLDER = 'tarteaucitron.js/';
 
 wp_tarteaucitron_setup();
+
 /**
  * @since 1.0.0
  *
@@ -63,34 +65,38 @@ function wp_tarteaucitron_actions(): void {
 
 /**
  * @since 1.0.0
- * 
+ *
  * @return void
  */
 function wp_tarteaucitron_scripts(): void {
-    $tarteaucitron_version = wp_tarteaucitron_script_version();
-    wp_enqueue_script( 'tarteaucitron_js', plugins_url( 'tarteaucitron/tarteaucitron.js' ), array(), $tarteaucitron_version, false );
+	try {
+		$tarteaucitron_version = wp_tarteaucitron_script_version();
+	} catch ( Exception $exception ) {
+		echo $exception->getMessage();
+		$tarteaucitron_version = false;
+	}
+	wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_FOLDER . 'tarteaucitron.js' ), array(), $tarteaucitron_version );
 }
 
 /**
  * @since 1.0.0
  *
- * @return string|bool
+ * @throws Exception
+ *
+ * @return string
  */
-function wp_tarteaucitron_script_version(): string | bool {
-    $tarteaucitron_package_json_path = 'tarteaucitron/package.json';
+function wp_tarteaucitron_script_version(): string {
+    $tarteaucitron_package_json_path = WP_TARTEAUCITRON_PACKAGE_FOLDER . 'package.json';
     if( file_exists( $tarteaucitron_package_json_path ) ) {
         $tarteaucitron_package_json = file_get_contents( $tarteaucitron_package_json_path );
         $decoded_tarteaucitron_package_json = json_decode( $tarteaucitron_package_json, false );
         if ( array_key_exists('version', $decoded_tarteaucitron_package_json ) ) {
             return $decoded_tarteaucitron_package_json->version;
         } else {
-            echo 'tarteaucitron package version not found';
-            return false;
+	        throw new Exception( 'tarteaucitron package version not found' );
         }
-
     } else {
-        echo 'tarteaucitron/package.json not found';
-        return false;
+	    throw new Exception( $tarteaucitron_package_json_path . ' not found' );
     }
 }
 
