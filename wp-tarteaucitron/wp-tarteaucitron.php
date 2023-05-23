@@ -91,11 +91,15 @@ function wp_tarteaucitron_script_version(): string {
     if( file_exists( $tarteaucitron_package_json_path ) ) {
         $tarteaucitron_package_json = file_get_contents( $tarteaucitron_package_json_path );
         $decoded_tarteaucitron_package_json = json_decode( $tarteaucitron_package_json, false );
-        if ( property_exists( $decoded_tarteaucitron_package_json, 'version' ) ) {
-            return $decoded_tarteaucitron_package_json->version;
-        } else {
-	        throw new Exception( 'tarteaucitron package version not found' );
-        }
+		if( $decoded_tarteaucitron_package_json == null ) {
+			throw new Exception( 'cannot decode tarteaucitron package json');
+		} else {
+			if( property_exists( $decoded_tarteaucitron_package_json, 'version' ) ) {
+				return $decoded_tarteaucitron_package_json->version;
+			} else {
+				throw new Exception( 'tarteaucitron package version not found' );
+			}
+		}
     } else {
 	    throw new Exception( $tarteaucitron_package_json_path . ' not found' );
     }
