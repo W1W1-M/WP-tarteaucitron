@@ -68,9 +68,13 @@ function wp_tarteaucitron_require_once(): void {
  * @return void
  */
 function wp_tarteaucitron_actions(): void {
-    add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_scripts', 10, 0 );
-	add_action( 'plugins_loaded', 'wp_tarteaucitron_options_init', 10, 0 );
-	add_action( 'init', 'wp_tarteaucitron_check_scripts_enqueued', 10, 0 );
+	try {
+		add_action( 'plugins_loaded', 'wp_tarteaucitron_options_init', 10, 0 );
+		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_scripts', 10, 0 );
+		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_check_scripts_enqueued', 99, 0 );
+	} catch (Exception $exception) {
+		echo $exception->getMessage();
+	}
 }
 
 /**
