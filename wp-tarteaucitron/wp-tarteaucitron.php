@@ -76,8 +76,8 @@ function wp_tarteaucitron_scripts(): void {
 		echo $exception->getMessage();
 		$tarteaucitron_version = false;
 	}
-	wp_enqueue_script( 'tarteaucitron_js', wp_tarteaucitron_package_directory_path() . 'tarteaucitron.js' , array(), $tarteaucitron_version );
-	wp_enqueue_script( 'tarteaucitron_script_js', './tarteaucitron-script.js' , array() );
+	wp_enqueue_script( 'tarteaucitron_js', plugins_url( '/wp-tarteaucitron/tarteaucitron.js/tarteaucitron.js' ), array(), $tarteaucitron_version );
+	wp_enqueue_script( 'tarteaucitron_script_js', plugins_url( '/wp-tarteaucitron/tarteaucitron-script.js' ) );
 }
 
 /**
@@ -114,6 +114,10 @@ function wp_tarteaucitron_script_version(): string {
 function wp_tarteaucitron_package_directory_path(): string {
 	$package_directory_path = __DIR__ . '/tarteaucitron.js/';
 	return trailingslashit( realpath( $package_directory_path ) );
+}
+
+function wp_tarteaucitron_check_script_enqueued() {
+	
 }
 
 ?>
