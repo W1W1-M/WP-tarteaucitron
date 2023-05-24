@@ -38,6 +38,7 @@ function wp_tarteaucitron_setup(): void {
 		wp_tarteaucitron_wordpress_absolute_path_available();
 		wp_tarteaucitron_require_once();
 		wp_tarteaucitron_actions();
+		wp_tarteaucitron_check_scripts_enqueued();
 	} catch ( Exception $exception ) {
 		exit( $exception->getMessage() );
 	}
@@ -124,8 +125,25 @@ function wp_tarteaucitron_options_init(): void {
 	$wp_tarteaucitron_options->setup();
 }
 
-function wp_tarteaucitron_check_script_enqueued() {
-	
+/**
+ * @since 1.0.0
+ *
+ * @throws Exception
+ *
+ * @return void
+ */
+function wp_tarteaucitron_check_scripts_enqueued(): void {
+	$scripts = array(
+		'tarteaucitron_js' => 'tarteaucitron_js',
+		'tarteaucitron_script_js' => 'tarteaucitron_script_js'
+	);
+	foreach( $scripts as $script ) {
+		if( wp_script_is( $script ) ) {
+			echo $script .  ' is enqueued.';
+		} else {
+			throw new Exception( $script . ' is not enqueued. ' );
+		}
+	}
 }
 
 ?>
