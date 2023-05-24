@@ -2,16 +2,16 @@ tarteaucitron.init({
     "privacyUrl": "", /* Privacy policy url */
     "bodyPosition": "bottom", /* or top to bring it as first element for accessibility */
 
-    "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
-    "cookieName": "tarteaucitron", /* Cookie name */
+    "hashtag": "#wp-tarteaucitron", /* Open the panel with this hashtag */
+    "cookieName": "wp-tarteaucitron", /* Cookie name */
 
     "orientation": "middle", /* Banner position (top - bottom - middle - popup) */
 
-    "groupServices": false, /* Group services by category */
+    "groupServices": true, /* Group services by category */
     "serviceDefaultState": "wait", /* Default state (true - wait - false) */
 
     "showAlertSmall": false, /* Show the small banner on bottom right */
-    "cookieslist": false, /* Show the cookie list */
+    "cookieslist": true, /* Show the cookie list */
 
     "showIcon": true, /* Show cookie icon to manage cookies */
     // "iconSrc": "", /* Optionnal: URL or base64 encoded image */
@@ -25,7 +25,7 @@ tarteaucitron.init({
 
     "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
 
-    "removeCredit": false, /* Remove credit link */
+    "removeCredit": true, /* Remove credit link */
     "moreInfoLink": true, /* Show more info link */
     "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
     "useExternalJs": false, /* If false, the tarteaucitron.services.js file will be loaded */
