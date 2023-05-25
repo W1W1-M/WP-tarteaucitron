@@ -101,7 +101,7 @@ function wp_tarteaucitron_scripts(): void {
  * @return string
  */
 function wp_tarteaucitron_script_version(): string {
-    $tarteaucitron_package_json_path = plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . 'package.json', __FILE__ );
+    $tarteaucitron_package_json_path = trailingslashit( dirname(__FILE__) ) . WP_TARTEAUCITRON_PACKAGE_PATH . 'package.json';
     if( file_exists( $tarteaucitron_package_json_path ) ) {
         $tarteaucitron_package_json = file_get_contents( $tarteaucitron_package_json_path );
         $decoded_tarteaucitron_package_json = json_decode( $tarteaucitron_package_json, false );
