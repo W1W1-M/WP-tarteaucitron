@@ -25,11 +25,9 @@
  */
 
 const WP_TARTEAUCITRON_PACKAGE_PATH = 'tarteaucitron.js/';
+const PLUGIN_FILE_PATH = __FILE__;
 
 wp_tarteaucitron_setup();
-
-$wp_tarteaucitron_setup = new WP_tarteaucitron_Setup();
-$wp_tarteaucitron_setup->init();
 
 /**
  * @since 1.0.0
@@ -43,6 +41,8 @@ function wp_tarteaucitron_setup(): void {
 	} catch ( Exception $exception ) {
 		exit( $exception->getMessage() );
 	}
+	register_activation_hook( PLUGIN_FILE_PATH, 'wp_tarteaucitron_plugin_activate' );
+	register_deactivation_hook( PLUGIN_FILE_PATH, 'wp_tarteaucitron_plugin_deactivate' );
 	wp_tarteaucitron_actions();
 }
 
@@ -74,8 +74,27 @@ function wp_tarteaucitron_require_once(): void {
  *
  * @return void
  */
+function wp_tarteaucitron_plugin_activate(): void {
+	add_option('WP_tarteaucitron_Activated',true );
+}
+
+/**
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function wp_tarteaucitron_plugin_deactivate(): void {
+
+}
+
+/**
+ * @since 1.0.0
+ *
+ * @return void
+ */
 function wp_tarteaucitron_actions(): void {
 	try {
+		add_action( 'admin_init', 'wp_tarteaucitron_initial_setup', 10, 0 );
 		add_action( 'plugins_loaded', 'wp_tarteaucitron_options_init', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_scripts', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_check_scripts_enqueued', 99, 0 );
@@ -164,6 +183,39 @@ function wp_tarteaucitron_check_scripts_enqueued(): void {
 			error_log( $exception->getMessage() );
 			throw $exception;
 		}
+	}
+}
+
+function wp_tarteaucitron_initial_setup(): void {
+	if ( current_user_can( 'activate_plugins' ) ) {
+		delete_option( 'WP_tarteaucitron_Activated' );
+		setup_javascript_file();
+	} else {
+		return;
+	}
+
+}
+
+/**
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function setup_javascript_file(): void {
+	$privacy_url = get_option( 'wp_tarteaucitron_privacy_url' );
+	if( ! $privacy_url ) {
+		$privacy_url_parameter = site_url();
+	} else {
+		$privacy_url_parameter = $privacy_url;
+	}
+	$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_url_parameter . '"});';
+	try {
+		$javascript_file = fopen( trailingslashit( dirname(__FILE__) ) . 'tarteaucitron-script.js', 'w+' );
+		fwrite( $javascript_file, $javascript);
+		fclose($javascript_file);
+		trigger_error( 'tarteaucitron js script created', E_USER_NOTICE);
+	} catch ( Exception $exception ) {
+		error_log( $exception->getMessage() );
 	}
 }
 
