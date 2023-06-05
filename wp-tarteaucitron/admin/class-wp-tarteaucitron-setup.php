@@ -205,7 +205,7 @@ class WP_tarteaucitron_Setup {
 	 * @return bool
 	 */
 	protected function tarteaucitron_script_js_file_exists(): bool {
-		if( file_exists( $this->tarteaucitron_script_js_file_exists() ) ) {
+		if( file_exists( $this->tarteaucitron_script_js_file_path() ) ) {
 			return true;
 		} else {
 			return false;
