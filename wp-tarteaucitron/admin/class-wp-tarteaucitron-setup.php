@@ -96,7 +96,7 @@ class WP_tarteaucitron_Setup {
 		}
 		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_url_parameter . '"});';
 		try {
-			$javascript_file = fopen( trailingslashit( dirname(PLUGIN_FILE_PATH) ) . 'tarteaucitron-script.js', 'w+' );
+			$javascript_file = fopen( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE, 'w+' );
 			fwrite( $javascript_file, $javascript);
 			fclose($javascript_file);
 			trigger_error( 'tarteaucitron js script created', E_USER_NOTICE);
@@ -113,7 +113,7 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	public static function delete_javascript_file(): void {
-		unlink( PLUGIN_FILE_PATH . 'tarteaucitron-script.js');
+		unlink( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE );
 	}
 }
 

@@ -24,8 +24,10 @@
  * Domain Path:          /languages
  */
 
-const WP_TARTEAUCITRON_PACKAGE_PATH = 'tarteaucitron.js/';
-const PLUGIN_FILE_PATH = __FILE__;
+const WP_TARTEAUCITRON_PLUGIN_FILE_PATH = __FILE__;
+const WP_TARTEAUCITRON_PACKAGE_PATH     = 'tarteaucitron.js/';
+const WP_TARTEAUCITRON_JS_FILE = 'tarteaucitron.js';
+const WP_TARTEAUCITRON_SCRIPT_JS_FILE = 'tarteaucitron-script.js';
 
 wp_tarteaucitron_setup();
 
@@ -38,9 +40,9 @@ function wp_tarteaucitron_setup(): void {
 	try {
 		wp_tarteaucitron_require_once();
 		WP_tarteaucitron_Setup::wordpress_absolute_path_available();
-		register_activation_hook( PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup, 'plugin_activate' ) );
-		register_deactivation_hook( PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup, 'plugin_deactivate' ) );
-		register_uninstall_hook( PLUGIN_FILE_PATH, WP_tarteaucitron_Setup::plugin_uninstall() );
+		register_activation_hook( WP_TARTEAUCITRON_PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup, 'plugin_activate' ) );
+		register_deactivation_hook( WP_TARTEAUCITRON_PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup, 'plugin_deactivate' ) );
+		register_uninstall_hook( WP_TARTEAUCITRON_PLUGIN_FILE_PATH, WP_tarteaucitron_Setup::plugin_uninstall() );
 		wp_tarteaucitron_actions();
 	} catch ( Exception $exception ) {
 		exit( $exception->getMessage() );
@@ -53,7 +55,7 @@ function wp_tarteaucitron_setup(): void {
  * @return void
  */
 function wp_tarteaucitron_require_once(): void {
-	$plugin_dir_path = plugin_dir_path( PLUGIN_FILE_PATH );
+	$plugin_dir_path = plugin_dir_path( WP_TARTEAUCITRON_PLUGIN_FILE_PATH );
 	require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-setup.php';
 	require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-options.php';
 }
@@ -92,17 +94,17 @@ function wp_tarteaucitron_scripts(): void {
 		error_log( 'WP-tarteaucitron script version error. Use default version.' );
 		$tarteaucitron_version = false;
 	}
-	if( file_exists( trailingslashit( dirname(PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . 'tarteaucitron.js' ) ) {
-		wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . 'tarteaucitron.js', PLUGIN_FILE_PATH ), array(), $tarteaucitron_version );
+	if( file_exists( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE ) ) {
+		wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ), array(), $tarteaucitron_version );
 	} else {
-		$exception = new Exception( 'cannot find tarteaucitron.js');
+		$exception = new Exception( 'cannot find ' . WP_TARTEAUCITRON_JS_FILE);
 		error_log( $exception->getMessage() );
 		throw $exception;
 	}
-	if( file_exists( trailingslashit( dirname(PLUGIN_FILE_PATH ) ) . 'tarteaucitron-script.js' ) ) {
-		wp_enqueue_script( 'tarteaucitron_script_js', plugins_url( 'tarteaucitron-script.js', PLUGIN_FILE_PATH ) );
+	if( file_exists( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE ) ) {
+		wp_enqueue_script( 'tarteaucitron_script_js', plugins_url( WP_TARTEAUCITRON_SCRIPT_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) );
 	} else {
-		$exception = new Exception( 'cannot find tarteaucitron-script.js');
+		$exception = new Exception( 'cannot find ' . WP_TARTEAUCITRON_SCRIPT_JS_FILE);
 		error_log( $exception->getMessage() );
 		throw $exception;
 	}
@@ -117,7 +119,7 @@ function wp_tarteaucitron_scripts(): void {
  * @return string
  */
 function wp_tarteaucitron_script_version(): string {
-    $tarteaucitron_package_json_path = trailingslashit( dirname(PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . 'package.json';
+    $tarteaucitron_package_json_path = trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . 'package.json';
     if( file_exists( $tarteaucitron_package_json_path ) ) {
         $tarteaucitron_package_json = file_get_contents( $tarteaucitron_package_json_path );
         $decoded_tarteaucitron_package_json = json_decode( $tarteaucitron_package_json, false );
