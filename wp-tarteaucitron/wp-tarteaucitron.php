@@ -98,6 +98,7 @@ function wp_tarteaucitron_actions(): void {
 		add_action( 'plugins_loaded', 'wp_tarteaucitron_options_init', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_scripts', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_check_scripts_enqueued', 99, 0 );
+		add_action( 'updated_option_wp_tarteaucitron_privacy_url', array( new WP_tarteaucitron_Setup, 'setup_javascript_file' ) );
 	} catch ( Exception $exception ) {
 		error_log( 'WP-tarteaucitron actions error' );
 	}
@@ -196,29 +197,6 @@ function wp_tarteaucitron_check_scripts_enqueued(): void {
 			error_log( $exception->getMessage() );
 			throw $exception;
 		}
-	}
-}
-
-/**
- * @since 1.0.0
- *
- * @return void
- */
-function setup_javascript_file(): void {
-	$privacy_url = get_option( 'wp_tarteaucitron_privacy_url' );
-	if( ! $privacy_url ) {
-		$privacy_url_parameter = site_url();
-	} else {
-		$privacy_url_parameter = $privacy_url;
-	}
-	$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_url_parameter . '"});';
-	try {
-		$javascript_file = fopen( trailingslashit( dirname(__FILE__) ) . 'tarteaucitron-script.js', 'w+' );
-		fwrite( $javascript_file, $javascript);
-		fclose($javascript_file);
-		trigger_error( 'tarteaucitron js script created', E_USER_NOTICE);
-	} catch ( Exception $exception ) {
-		error_log( $exception->getMessage() );
 	}
 }
 
