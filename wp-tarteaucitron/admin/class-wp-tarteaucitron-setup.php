@@ -31,12 +31,6 @@ class WP_tarteaucitron_Setup {
 		}
 	}
 
-	public static function require_once(): void {
-		$plugin_dir_path = plugin_dir_path( PLUGIN_FILE_PATH );
-		require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-setup.php';
-		require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-options.php';
-	}
-
 	/**
 	 * @since 1.0.0
 	 *

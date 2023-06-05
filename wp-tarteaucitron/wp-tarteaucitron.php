@@ -36,8 +36,8 @@ wp_tarteaucitron_setup();
  */
 function wp_tarteaucitron_setup(): void {
 	try {
+		wp_tarteaucitron_require_once();
 		WP_tarteaucitron_Setup::wordpress_absolute_path_available();
-		WP_tarteaucitron_Setup::require_once();
 		register_activation_hook( PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup,'plugin_activate' ) );
 		register_deactivation_hook( PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup,'plugin_deactivate' ) );
 		register_uninstall_hook( PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup,'plugin_uninstall' ) );
@@ -45,6 +45,17 @@ function wp_tarteaucitron_setup(): void {
 	} catch ( Exception $exception ) {
 		exit( $exception->getMessage() );
 	}
+}
+
+/**
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function wp_tarteaucitron_require_once(): void {
+	$plugin_dir_path = plugin_dir_path( PLUGIN_FILE_PATH );
+	require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-setup.php';
+	require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-options.php';
 }
 
 /**
