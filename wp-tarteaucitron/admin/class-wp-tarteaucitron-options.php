@@ -1,5 +1,8 @@
-<?php
+<?php /** @noinspection PhpRedundantClosingTagInspection */
 
+/**
+ * @since 1.0.0
+ */
 class WP_tateaucitron_Options {
 
 	/**
@@ -57,8 +60,10 @@ class WP_tateaucitron_Options {
 
 	/**
 	 * @since 1.0.0
-	 *
-	 * @return void
+     *
+     * @return void
+     *
+	 * @noinspection HtmlUnknownTarget*
 	 */
 	public function setup_settings_form(): void {
 		echo '<form action="options.php" method="post">';
@@ -148,8 +153,10 @@ class WP_tateaucitron_Options {
 	 *
 	 * @return string
 	 */
-	public static function get_privacy_url(): string {
+	public function get_privacy_url(): string {
 		return get_option( 'wp_tarteaucitron_privacy_url' );
 	}
 
 }
+
+?>

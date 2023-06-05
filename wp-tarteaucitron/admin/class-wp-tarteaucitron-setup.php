@@ -50,19 +50,11 @@ class WP_tarteaucitron_Setup {
 	public static function plugin_deactivate(): void {
 		try {
 			WP_tarteaucitron_Setup::delete_javascript_file();
+			trigger_error( 'tarteaucitron js script deleted', E_USER_NOTICE);
 		} catch( Exception $exception ) {
 			error_log( $exception->getMessage() );
 			throw $exception;
 		}
-	}
-
-	/**
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public static function plugin_uninstall(): void {
-		delete_option( 'wp_tarteaucitron_privacy_url' );
 	}
 
 	/**
