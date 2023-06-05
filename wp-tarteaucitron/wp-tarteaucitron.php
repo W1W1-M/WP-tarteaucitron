@@ -94,7 +94,7 @@ function wp_tarteaucitron_plugin_deactivate(): void {
  */
 function wp_tarteaucitron_actions(): void {
 	try {
-		add_action( 'admin_init', 'wp_tarteaucitron_just_activated_setup', 10, 0 );
+		add_action( 'admin_init', array( new WP_tarteaucitron_Setup, 'just_activated_setup' ), 10, 0 );
 		add_action( 'plugins_loaded', 'wp_tarteaucitron_options_init', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_scripts', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_check_scripts_enqueued', 99, 0 );
@@ -197,21 +197,6 @@ function wp_tarteaucitron_check_scripts_enqueued(): void {
 			throw $exception;
 		}
 	}
-}
-
-/**
- * @since 1.0.0
- *
- * @return void
- */
-function wp_tarteaucitron_just_activated_setup(): void {
-	if ( current_user_can( 'activate_plugins' && get_option('WP_tarteaucitron_just_activated') ) ) {
-		delete_option( 'WP_tarteaucitron_just_activated' );
-		setup_javascript_file();
-	} else {
-		trigger_error( 'User is not authorized to run activation setup', E_USER_NOTICE);
-	}
-
 }
 
 /**
