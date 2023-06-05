@@ -75,7 +75,7 @@ function wp_tarteaucitron_require_once(): void {
  * @return void
  */
 function wp_tarteaucitron_plugin_activate(): void {
-	add_option('WP_tarteaucitron_Activated',true );
+	add_option('WP_tarteaucitron_just_activated',true );
 }
 
 /**
@@ -94,7 +94,7 @@ function wp_tarteaucitron_plugin_deactivate(): void {
  */
 function wp_tarteaucitron_actions(): void {
 	try {
-		add_action( 'admin_init', 'wp_tarteaucitron_initial_setup', 10, 0 );
+		add_action( 'admin_init', 'wp_tarteaucitron_just_activated_setup', 10, 0 );
 		add_action( 'plugins_loaded', 'wp_tarteaucitron_options_init', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_scripts', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_check_scripts_enqueued', 99, 0 );
@@ -115,8 +115,21 @@ function wp_tarteaucitron_scripts(): void {
 		error_log( 'WP-tarteaucitron script version error. Use default version.' );
 		$tarteaucitron_version = false;
 	}
-	wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . 'tarteaucitron.js', __FILE__ ), array(), $tarteaucitron_version );
-	wp_enqueue_script( 'tarteaucitron_script_js', plugins_url( 'tarteaucitron-script.js', __FILE__ ) );
+	if( file_exists( trailingslashit( dirname(PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . 'tarteaucitron.js' ) ) {
+		wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . 'tarteaucitron.js', PLUGIN_FILE_PATH ), array(), $tarteaucitron_version );
+	} else {
+		$exception = new Exception( 'cannot find tarteaucitron.js');
+		error_log( $exception->getMessage() );
+		throw $exception;
+	}
+	if( file_exists( trailingslashit( dirname(PLUGIN_FILE_PATH ) ) . 'tarteaucitron-script.js' ) ) {
+		wp_enqueue_script( 'tarteaucitron_script_js', plugins_url( 'tarteaucitron-script.js', PLUGIN_FILE_PATH ) );
+	} else {
+		$exception = new Exception( 'cannot find tarteaucitron-script.js');
+		error_log( $exception->getMessage() );
+		throw $exception;
+	}
+
 }
 
 /**
@@ -127,7 +140,7 @@ function wp_tarteaucitron_scripts(): void {
  * @return string
  */
 function wp_tarteaucitron_script_version(): string {
-    $tarteaucitron_package_json_path = trailingslashit( dirname(__FILE__) ) . WP_TARTEAUCITRON_PACKAGE_PATH . 'package.json';
+    $tarteaucitron_package_json_path = trailingslashit( dirname(PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . 'package.json';
     if( file_exists( $tarteaucitron_package_json_path ) ) {
         $tarteaucitron_package_json = file_get_contents( $tarteaucitron_package_json_path );
         $decoded_tarteaucitron_package_json = json_decode( $tarteaucitron_package_json, false );
@@ -186,12 +199,17 @@ function wp_tarteaucitron_check_scripts_enqueued(): void {
 	}
 }
 
-function wp_tarteaucitron_initial_setup(): void {
-	if ( current_user_can( 'activate_plugins' ) ) {
-		delete_option( 'WP_tarteaucitron_Activated' );
+/**
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function wp_tarteaucitron_just_activated_setup(): void {
+	if ( current_user_can( 'activate_plugins' && get_option('WP_tarteaucitron_just_activated') ) ) {
+		delete_option( 'WP_tarteaucitron_just_activated' );
 		setup_javascript_file();
 	} else {
-		return;
+		trigger_error( 'User is not authorized to run activation setup', E_USER_NOTICE);
 	}
 
 }
