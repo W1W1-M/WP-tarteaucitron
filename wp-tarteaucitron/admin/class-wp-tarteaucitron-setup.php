@@ -21,8 +21,8 @@ class WP_tarteaucitron_Setup {
 	 */
 	public static function just_activated_setup(): void {
 		if( current_user_can( 'activate_plugins' ) ) {
-			if( get_option('WP_tarteaucitron_just_activated' ) ) {
-				delete_option( 'WP_tarteaucitron_just_activated' );
+			if( get_option('wp_tarteaucitron_just_activated' ) ) {
+				delete_option( 'wp_tarteaucitron_just_activated' );
 				WP_tarteaucitron_Setup::setup_javascript_file();
 			}
 		} else {
