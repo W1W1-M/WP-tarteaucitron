@@ -42,7 +42,6 @@ function wp_tarteaucitron_setup(): void {
 		WP_tarteaucitron_Setup::wordpress_absolute_path_available();
 		register_activation_hook( WP_TARTEAUCITRON_PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup, 'plugin_activate' ) );
 		register_deactivation_hook( WP_TARTEAUCITRON_PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup, 'plugin_deactivate' ) );
-		register_uninstall_hook( WP_TARTEAUCITRON_PLUGIN_FILE_PATH, WP_tarteaucitron_Setup::plugin_uninstall() );
 		wp_tarteaucitron_actions();
 	} catch ( Exception $exception ) {
 		exit( $exception->getMessage() );
