@@ -49,10 +49,17 @@ class WP_tarteaucitron_Setup {
 	/**
 	 * @since 1.0.0
 	 *
+	 * @throws Exception
+	 *
 	 * @return void
 	 */
 	public static function plugin_deactivate(): void {
-
+		try {
+			WP_tarteaucitron_Setup::delete_javascript_file();
+		} catch( Exception $exception ) {
+			error_log( $exception->getMessage() );
+			throw $exception;
+		}
 	}
 
 	/**
@@ -104,6 +111,16 @@ class WP_tarteaucitron_Setup {
 		}
 	}
 
+	/**
+	 * @since 1.0.0
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
+	public static function delete_javascript_file(): void {
+		unlink( PLUGIN_FILE_PATH . 'tarteaucitron-script.js');
+	}
 }
 
 ?>
