@@ -36,65 +36,15 @@ wp_tarteaucitron_setup();
  */
 function wp_tarteaucitron_setup(): void {
 	try {
-		wp_tarteaucitron_wordpress_absolute_path_available();
-		wp_tarteaucitron_require_once();
-		register_activation_hook( PLUGIN_FILE_PATH, 'wp_tarteaucitron_plugin_activate' );
-		register_deactivation_hook( PLUGIN_FILE_PATH, 'wp_tarteaucitron_plugin_deactivate' );
-		register_uninstall_hook( PLUGIN_FILE_PATH, 'wp_tarteaucitron_plugin_uninstall' );
+		WP_tarteaucitron_Setup::wordpress_absolute_path_available();
+		WP_tarteaucitron_Setup::require_once();
+		register_activation_hook( PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup,'plugin_activate' ) );
+		register_deactivation_hook( PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup,'plugin_deactivate' ) );
+		register_uninstall_hook( PLUGIN_FILE_PATH, array( new WP_tarteaucitron_Setup,'plugin_uninstall' ) );
 		wp_tarteaucitron_actions();
 	} catch ( Exception $exception ) {
 		exit( $exception->getMessage() );
 	}
-}
-
-/**
- * @since 1.0.0
- *
- * @throws Exception
- *
- * @return bool
- */
-function wp_tarteaucitron_wordpress_absolute_path_available(): bool {
-    if( defined( 'ABSPATH' )) {
-        return true;
-    } else {
-        $exception = new Exception( 'WordPress unavailable. Plugin not loaded.' );
-		error_log( $exception->getMessage() );
-		throw $exception;
-    }
-}
-
-function wp_tarteaucitron_require_once(): void {
-	$plugin_dir_path = plugin_dir_path( __FILE__ );
-	require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-setup.php';
-	require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-options.php';
-}
-
-/**
- * @since 1.0.0
- *
- * @return void
- */
-function wp_tarteaucitron_plugin_activate(): void {
-	add_option('wp_tarteaucitron_just_activated',true );
-}
-
-/**
- * @since 1.0.0
- *
- * @return void
- */
-function wp_tarteaucitron_plugin_deactivate(): void {
-
-}
-
-/**
- * @since 1.0.0
- *
- * @return void
- */
-function wp_tarteaucitron_plugin_uninstall(): void {
-	delete_option( 'wp_tarteaucitron_privacy_url' );
 }
 
 /**

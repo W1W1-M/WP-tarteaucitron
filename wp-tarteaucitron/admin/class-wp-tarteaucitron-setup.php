@@ -17,6 +17,56 @@ class WP_tarteaucitron_Setup {
 	/**
 	 * @since 1.0.0
 	 *
+	 * @throws Exception
+	 *
+	 * @return bool
+	 */
+	public static function wordpress_absolute_path_available(): bool {
+		if( defined( 'ABSPATH' )) {
+			return true;
+		} else {
+			$exception = new Exception( 'WordPress unavailable. Plugin not loaded.' );
+			error_log( $exception->getMessage() );
+			throw $exception;
+		}
+	}
+
+	public static function require_once(): void {
+		$plugin_dir_path = plugin_dir_path( PLUGIN_FILE_PATH );
+		require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-setup.php';
+		require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-options.php';
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public static function plugin_activate(): void {
+		add_option('wp_tarteaucitron_just_activated',true );
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public static function plugin_deactivate(): void {
+
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public static function plugin_uninstall(): void {
+		delete_option( 'wp_tarteaucitron_privacy_url' );
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
 	 * @return void
 	 */
 	public static function just_activated_setup(): void {
