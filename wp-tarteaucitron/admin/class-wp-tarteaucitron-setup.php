@@ -119,7 +119,7 @@ class WP_tarteaucitron_Setup {
 	 */
 	public function options_init(): void {
 		$wp_tarteaucitron_options = new WP_tateaucitron_Options();
-		$wp_tarteaucitron_options->setup();
+		$wp_tarteaucitron_options->init();
 	}
 
 	/**
@@ -194,7 +194,7 @@ class WP_tarteaucitron_Setup {
 	 *
 	 * @return void
 	 */
-	protected function check_scripts_enqueued(): void {
+	public function check_scripts_enqueued(): void {
 		$scripts = array(
 			'tarteaucitron_js' => 'tarteaucitron_js',
 			'tarteaucitron_script_js' => 'tarteaucitron_script_js'

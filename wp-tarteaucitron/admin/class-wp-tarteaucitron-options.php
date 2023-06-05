@@ -10,7 +10,7 @@ class WP_tateaucitron_Options {
 	 *
 	 * @return void
 	 */
-	public function setup(): void {
+	public function init(): void {
 		add_action( 'admin_menu', array($this, 'setup_submenu_with_page' ) );
 		add_action( 'admin_init', array(&$this, 'setup_settings' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename(WP_TARTEAUCITRON_PLUGIN_FILE_PATH), array( $this, 'plugin_settings_link') );
@@ -66,7 +66,7 @@ class WP_tateaucitron_Options {
      *
 	 * @noinspection HtmlUnknownTarget*
 	 */
-	public function setup_settings_form(): void {
+	protected function setup_settings_form(): void {
 		echo '<form action="options.php" method="post">';
 		settings_fields( 'wp_tarteaucitron_options' );
 		do_settings_sections( 'wp-tarteaucitron' );
@@ -89,7 +89,7 @@ class WP_tateaucitron_Options {
 	 *
 	 * @return void
 	 */
-	public function setup_settings_section(): void {
+	protected function setup_settings_section(): void {
 		add_settings_section(
 			'wp_tarteaucitron_settings_section',
 			__( 'Settings', 'wp-tarteaucitron' ), array( &$this, 'settings_section_callback' ),
@@ -111,7 +111,7 @@ class WP_tateaucitron_Options {
 	 *
 	 * @return void
 	 */
-	public function setup_privacy_url_setting(): void {
+	protected function setup_privacy_url_setting(): void {
 		$form_id_setting_args = array(
 			'sanitize_callback' => array( &$this, 'sanitize_privacy_url_setting_input' ),
 			'default' => ''
@@ -154,7 +154,7 @@ class WP_tateaucitron_Options {
 	 *
 	 * @return string
 	 */
-	public function get_privacy_url(): string {
+	protected function get_privacy_url(): string {
 		return get_option( 'wp_tarteaucitron_privacy_url' );
 	}
 
