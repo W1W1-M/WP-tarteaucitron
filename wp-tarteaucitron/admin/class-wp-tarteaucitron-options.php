@@ -13,6 +13,7 @@ class WP_tateaucitron_Options {
 	public function setup(): void {
 		add_action( 'admin_menu', array($this, 'setup_submenu_with_page' ) );
 		add_action( 'admin_init', array(&$this, 'setup_settings' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename(WP_TARTEAUCITRON_PLUGIN_FILE_PATH, 'plugin_settings_link') );
 	}
 
 	/**
@@ -155,6 +156,11 @@ class WP_tateaucitron_Options {
 	 */
 	public function get_privacy_url(): string {
 		return get_option( 'wp_tarteaucitron_privacy_url' );
+	}
+
+	public function plugin_settings_link( $links ) {
+		$links[] = '<a href="' . admin_url( 'options-general.php?page=wp-tarteaucitron' ) . '">' . __('Settings') . '</a>';
+		return $links;
 	}
 
 }
