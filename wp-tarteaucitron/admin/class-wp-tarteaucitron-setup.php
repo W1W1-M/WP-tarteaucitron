@@ -45,7 +45,7 @@ class WP_tarteaucitron_Setup {
 		}
 		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_url_parameter . '"});';
 		try {
-			$javascript_file = fopen( trailingslashit( dirname(__FILE__) ) . 'tarteaucitron-script.js', 'w+' );
+			$javascript_file = fopen( trailingslashit( dirname(PLUGIN_FILE_PATH) ) . 'tarteaucitron-script.js', 'w+' );
 			fwrite( $javascript_file, $javascript);
 			fclose($javascript_file);
 			trigger_error( 'tarteaucitron js script created', E_USER_NOTICE);
