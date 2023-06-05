@@ -98,7 +98,7 @@ function wp_tarteaucitron_actions(): void {
 		add_action( 'plugins_loaded', 'wp_tarteaucitron_options_init', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_scripts', 10, 0 );
 		add_action( 'wp_enqueue_scripts', 'wp_tarteaucitron_check_scripts_enqueued', 99, 0 );
-		add_action( 'updated_option_wp_tarteaucitron_privacy_url', array( new WP_tarteaucitron_Setup, 'setup_javascript_file' ) );
+		add_action( 'update_option_wp_tarteaucitron_privacy_url', array( new WP_tarteaucitron_Setup, 'setup_javascript_file' ) );
 	} catch ( Exception $exception ) {
 		error_log( 'WP-tarteaucitron actions error' );
 	}
@@ -106,6 +106,8 @@ function wp_tarteaucitron_actions(): void {
 
 /**
  * @since 1.0.0
+ *
+ * @throws Exception
  *
  * @return void
  */
