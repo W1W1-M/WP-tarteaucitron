@@ -28,6 +28,7 @@ const WP_TARTEAUCITRON_PLUGIN_FILE_PATH = __FILE__;
 const WP_TARTEAUCITRON_PACKAGE_PATH     = 'tarteaucitron.js/';
 const WP_TARTEAUCITRON_JS_FILE = 'tarteaucitron.js';
 const WP_TARTEAUCITRON_SCRIPT_JS_FILE = 'tarteaucitron-script.js';
+const WP_TATEAUCITRON_PACKAGE_JSON_FILE = 'package.json';
 
 wp_tarteaucitron_setup();
 

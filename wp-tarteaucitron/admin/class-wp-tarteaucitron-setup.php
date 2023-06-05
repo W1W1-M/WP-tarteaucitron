@@ -136,14 +136,14 @@ class WP_tarteaucitron_Setup {
 			error_log( 'WP-tarteaucitron script version error. Use default version.' );
 			$tarteaucitron_version = false;
 		}
-		if( file_exists( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE ) ) {
+		if( $this->tarteaucitron_js_file_exists() ) {
 			wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ), array(), $tarteaucitron_version );
 		} else {
 			$exception = new Exception( 'cannot find ' . WP_TARTEAUCITRON_JS_FILE);
 			error_log( $exception->getMessage() );
 			throw $exception;
 		}
-		if( file_exists( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE ) ) {
+		if( $this->tarteaucitron_script_js_file_exists() ) {
 			wp_enqueue_script( 'tarteaucitron_script_js', plugins_url( WP_TARTEAUCITRON_SCRIPT_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) );
 		} else {
 			$exception = new Exception( 'cannot find ' . WP_TARTEAUCITRON_SCRIPT_JS_FILE);
@@ -161,9 +161,8 @@ class WP_tarteaucitron_Setup {
 	 * @return string
 	 */
 	public function tarteaucitron_script_version(): string {
-		$tarteaucitron_package_json_path = trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . 'package.json';
-		if( file_exists( $tarteaucitron_package_json_path ) ) {
-			$tarteaucitron_package_json = file_get_contents( $tarteaucitron_package_json_path );
+		if( $this->tarteaucitron_package_json_file_exists() ) {
+			$tarteaucitron_package_json = file_get_contents( $this->tarteaucitron_package_json_file_path() );
 			$decoded_tarteaucitron_package_json = json_decode( $tarteaucitron_package_json, false );
 			if( $decoded_tarteaucitron_package_json == null ) {
 				$exception = new Exception( 'cannot decode tarteaucitron package json');
@@ -181,10 +180,76 @@ class WP_tarteaucitron_Setup {
 				}
 			}
 		} else {
-			$exception = new Exception( $tarteaucitron_package_json_path . ' not found' );
+			$exception = new Exception( $this->tarteaucitron_package_json_file_path() . ' not found' );
 			error_log( $exception->getMessage() );
 			throw $exception;
 		}
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	protected function tarteaucitron_js_file_exists(): bool {
+		if( file_exists( $this->tarteaucitron_js_file_path() ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	protected function tarteaucitron_script_js_file_exists(): bool {
+		if( file_exists( $this->tarteaucitron_script_js_file_exists() ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	protected function tarteaucitron_package_json_file_exists(): bool {
+		if( file_exists( $this->tarteaucitron_package_json_file_path() ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	protected function tarteaucitron_js_file_path(): string {
+		return trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE;
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	protected function tarteaucitron_script_js_file_path(): string {
+		return trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE;
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	protected function tarteaucitron_package_json_file_path(): string {
+		return trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . WP_TATEAUCITRON_PACKAGE_JSON_FILE;
 	}
 
 	/**
