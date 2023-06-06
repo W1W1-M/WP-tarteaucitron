@@ -57,7 +57,7 @@ class WP_tarteaucitron_Setup {
 	public function plugin_deactivate(): void {
 		try {
 			$this->delete_javascript_file();
-			trigger_error( 'tarteaucitron js script deleted', E_USER_NOTICE);
+			trigger_error( 'tarteaucitron js script deleted' );
 		} catch( Exception $exception ) {
 			error_log( $exception->getMessage() );
 			throw $exception;
@@ -108,7 +108,7 @@ class WP_tarteaucitron_Setup {
 				$this->setup_javascript_file();
 			}
 		} else {
-			trigger_error( 'User is not authorized to run activation setup', E_USER_NOTICE);
+			trigger_error( 'User is not authorized to run activation setup' );
 		}
 
 	}
@@ -119,7 +119,7 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	public function options_init(): void {
-		$wp_tarteaucitron_options = new WP_tateaucitron_Options();
+		$wp_tarteaucitron_options = new WP_tarteaucitron_Options();
 		$wp_tarteaucitron_options->init();
 	}
 
@@ -293,7 +293,7 @@ class WP_tarteaucitron_Setup {
 			$javascript_file = fopen( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE, 'w+' );
 			fwrite( $javascript_file, $javascript);
 			fclose($javascript_file);
-			trigger_error( 'tarteaucitron js script created', E_USER_NOTICE);
+			trigger_error( 'tarteaucitron js script created' );
 		} catch ( Exception $exception ) {
 			error_log( $exception->getMessage() );
 		}

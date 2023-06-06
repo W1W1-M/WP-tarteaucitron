@@ -3,7 +3,7 @@
 /**
  * @since 1.0.0
  */
-class WP_tateaucitron_Options {
+class WP_tarteaucitron_Options {
 
 	/**
 	 * @since 1.0.0
