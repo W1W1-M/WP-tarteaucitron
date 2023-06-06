@@ -88,6 +88,7 @@ class WP_tarteaucitron_Setup {
 			add_action( 'plugins_loaded', array( $this,'options_init' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this,'scripts' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this,'check_scripts_enqueued' ), 99, 0 );
+			add_action( 'add_option_wp_tarteaucitron_privacy_url', array( $this, 'setup_javascript_file' ) );
 			add_action( 'update_option_wp_tarteaucitron_privacy_url', array( $this, 'setup_javascript_file' ) );
 		} catch ( Exception $exception ) {
 			error_log( 'WP-tarteaucitron actions error' );
