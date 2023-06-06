@@ -54,7 +54,7 @@ function wp_tarteaucitron_setup(): void {
  */
 function wp_tarteaucitron_require_once(): void {
 	$plugin_dir_path = plugin_dir_path( WP_TARTEAUCITRON_PLUGIN_FILE_PATH );
-	require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-setup.php';
+	require_once $plugin_dir_path . 'includes/class-wp-tarteaucitron-setup.php';
 	require_once $plugin_dir_path . 'admin/class-wp-tarteaucitron-options.php';
 }
 
