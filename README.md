@@ -11,7 +11,7 @@ The [tarteaucitron cookie manager](https://tarteaucitron.io/) in a WordPress plu
 Download the latest WPtarteaucitron.zip from [releases](https://git.manche.io/si/web/wptarteaucitron/-/releases) and install it via WordPress plugin admin menu.
 
 ## Usage
-Upon activation this plugin will create a *tarteaucitron-script.js* file with default tarteaucitron parameters. The privacy URL is configurable via the WPtarteaucitron item in tools menu.
+Upon activation this plugin will create a *tarteaucitron-script.js* file with default tarteaucitron parameters. The privacy URL is configurable via the WPtarteaucitron item in tools menu. Follow [tarteaucitron installation guide](https://tarteaucitron.io/en/install/) accordingly to add required services.
 
 ## Support
 Open an issue on our GitLab for technical issues.
