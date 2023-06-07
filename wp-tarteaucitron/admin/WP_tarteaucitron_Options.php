@@ -151,6 +151,9 @@ class WP_tarteaucitron_Options {
 	public function use_wp_privacy_policy_page_field_callback(): void {
         $html = '<p><input type="checkbox" id="wp_tarteaucitron_use_wp_privacy_policy_page" name="wp_tarteaucitron_use_wp_privacy_policy_page"';
         $html .= ' value="' . esc_attr( $this->get_option_use_wp_privacy_policy_page() ) . '"';
+        if( $this->get_option_use_wp_privacy_policy_page() ) {
+            $html .= ' checked';
+        }
         $html .= '/></p>';
         echo $html;
 	}
