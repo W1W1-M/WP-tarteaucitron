@@ -124,7 +124,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_use_wp_privacy_policy_page_field',
-			__( 'Use WordPress privacy policy page', 'wp-tarteaucitron' ), array( &$this,
+			__( 'Use privacy policy page defined in WordPress', 'wp-tarteaucitron' ), array( &$this,
 			'use_wp_privacy_policy_page_field_callback'
 		),
 			'wp-tarteaucitron',

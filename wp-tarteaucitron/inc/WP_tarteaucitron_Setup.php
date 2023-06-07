@@ -124,7 +124,12 @@ class WP_tarteaucitron_Setup {
 		if( current_user_can( 'activate_plugins' ) ) {
 			if( get_option('wp_tarteaucitron_just_activated' ) ) {
 				delete_option( 'wp_tarteaucitron_just_activated' );
-				$this->setup_javascript_file();
+				try {
+					$this->setup_javascript_file();
+				} catch ( Exception $exception ) {
+					trigger_error( $exception->getMessage() );
+					error_log( $exception->getMessage() );
+				}
 			}
 		} else {
 			trigger_error( 'User is not authorized to run activation setup' );

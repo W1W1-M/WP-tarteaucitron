@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-tarteaucitron\n"
-"POT-Creation-Date: 2023-06-07 09:08+0200\n"
-"PO-Revision-Date: 2023-06-07 09:09+0200\n"
+"POT-Creation-Date: 2023-06-07 10:16+0200\n"
+"PO-Revision-Date: 2023-06-07 10:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -22,10 +22,18 @@ msgstr ""
 "Vous n'êtes pas autorisé a gérer ces paramètres. Merci de contacter votre "
 "administrateur WordPress."
 
-#: admin/WP_tarteaucitron_Options.php:95 admin/WP_tarteaucitron_Options.php:162
+#: admin/WP_tarteaucitron_Options.php:96 admin/WP_tarteaucitron_Options.php:224
 msgid "Settings"
 msgstr "Paramètres"
 
-#: admin/WP_tarteaucitron_Options.php:126
+#: admin/WP_tarteaucitron_Options.php:127
+msgid "Use privacy policy page defined in WordPress"
+msgstr "Utiliser la page de politique de confidentialité défini dans WordPress"
+
+#: admin/WP_tarteaucitron_Options.php:181
 msgid "Privacy policy URL"
 msgstr "URL politique de confidentialité"
+
+#~ msgid "Use WordPress privacy policy page"
+#~ msgstr ""
+#~ "Utiliser la page de politique de confidentialité défini dans WordPress"
