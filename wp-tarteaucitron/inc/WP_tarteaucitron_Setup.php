@@ -98,8 +98,10 @@ class WP_tarteaucitron_Setup {
 			add_action( 'plugins_loaded', array( $this,'options_init' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this,'scripts' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this,'check_scripts_enqueued' ), 99, 0 );
-			add_action( 'add_option_wp_tarteaucitron_privacy_url', array( $this, 'setup_javascript_file' ) );
-			add_action( 'update_option_wp_tarteaucitron_privacy_url', array( $this, 'setup_javascript_file' ) );
+			add_action( 'add_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this, 'setup_javascript_file' ) );
+			add_action( 'add_option_wp_tarteaucitron_privacy_policy_url', array( $this, 'setup_javascript_file' ) );
+			add_action( 'update_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this, 'setup_javascript_file' ) );
+			add_action( 'update_option_wp_tarteaucitron_privacy_policy_url', array( $this, 'setup_javascript_file' ) );
 		} catch ( Exception $exception ) {
 			error_log( 'WP-tarteaucitron actions error' );
 			throw $exception;
@@ -311,7 +313,6 @@ class WP_tarteaucitron_Setup {
 			$privacy_policy_url = $this->wp_tarteaucitron_options->get_privacy_policy_url();
 		} catch( Exception $exception ) {
 			trigger_error( $exception->getMessage() );
-			error_log( $exception->getMessage() );
 			$privacy_policy_url = '';
 		}
 		if( empty( $privacy_policy_url ) ) {
@@ -325,7 +326,6 @@ class WP_tarteaucitron_Setup {
 			fwrite( $javascript_file, $javascript);
 			fclose($javascript_file);
 			trigger_error( 'tarteaucitron js script created' );
-			error_log( 'tarteaucitron js script created');
 		} catch ( Exception $exception ) {
 			error_log( $exception->getMessage() );
 		}
