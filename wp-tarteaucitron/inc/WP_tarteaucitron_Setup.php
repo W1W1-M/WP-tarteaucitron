@@ -84,7 +84,7 @@ class WP_tarteaucitron_Setup {
 	 */
 	protected function actions(): void {
 		try {
-			add_action( 'init', 'load_textdomain', 10, 0 );
+			add_action( 'init', array( $this, 'load_textdomain' ), 10, 0 );
 			add_action( 'admin_init', array( $this,'just_activated_setup' ), 10, 0 );
 			add_action( 'plugins_loaded', array( $this,'options_init' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this,'scripts' ), 10, 0 );
@@ -102,7 +102,7 @@ class WP_tarteaucitron_Setup {
 	 *
 	 * @return void
 	 */
-	function load_textdomain(): void {
+	public function load_textdomain(): void {
 		load_plugin_textdomain( 'wp-tarteaucitron', false, dirname( plugin_basename( WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . '/lang/' );
 	}
 
