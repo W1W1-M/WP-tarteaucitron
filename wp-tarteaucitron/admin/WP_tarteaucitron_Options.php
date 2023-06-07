@@ -225,18 +225,25 @@ class WP_tarteaucitron_Options {
 		return $links;
 	}
 
-    public function get_privacy_policy_url(): string {
+	/**
+     * @since 1.0.0
+     *
+	 * @throws Exception
+     *
+     * @return string
+	 */
+	public function get_privacy_policy_url(): string {
         if( $this->get_option_use_wp_privacy_policy_page() ) {
             $wp_privacy_policy_url = get_privacy_policy_url();
             if( empty( $wp_privacy_policy_url ) ) {
-                trigger_error( 'WordPress privacy policy page not set' );
+	            throw new Exception( 'WordPress privacy policy page not set' );
             } else {
                 return $wp_privacy_policy_url;
             }
         } else {
             $tarteaucitron_privacy_policy_url = $this->get_option_wp_tarteaucitron_privacy_policy_url();
             if( empty( $tarteaucitron_privacy_policy_url ) ) {
-	            trigger_error( 'tarteaucitron privacy policy URL not set' );
+	            throw new Exception( 'tarteaucitron privacy policy URL not set' );
             } else {
                 return $tarteaucitron_privacy_policy_url;
             }

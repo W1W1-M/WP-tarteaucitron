@@ -5,6 +5,15 @@
  */
 class WP_tarteaucitron_Setup {
 
+	public WP_tarteaucitron_Options $wp_tarteaucitron_options;
+
+	/**
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+		$this->wp_tarteaucitron_options = new WP_tarteaucitron_Options();
+	}
+
 	/**
 	 * @since 1.0.0
 	 *
@@ -129,8 +138,7 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	public function options_init(): void {
-		$wp_tarteaucitron_options = new WP_tarteaucitron_Options();
-		$wp_tarteaucitron_options->init();
+		$this->wp_tarteaucitron_options->init();
 	}
 
 	/**
@@ -289,14 +297,22 @@ class WP_tarteaucitron_Setup {
 	/**
 	 * @since 1.0.0
 	 *
+	 * @throws Exception
+	 *
 	 * @return void
 	 */
 	public function setup_javascript_file(): void {
-		$privacy_url = get_option( 'wp_tarteaucitron_privacy_policy_url' );
-		if( ! $privacy_url ) {
+		try {
+			$privacy_policy_url = $this->wp_tarteaucitron_options->get_privacy_policy_url();
+		} catch( Exception $exception ) {
+			trigger_error( $exception->getMessage() );
+			error_log( $exception->getMessage() );
+			$privacy_policy_url = '';
+		}
+		if( empty( $privacy_policy_url ) ) {
 			$privacy_url_parameter = site_url();
 		} else {
-			$privacy_url_parameter = $privacy_url;
+			$privacy_url_parameter = $privacy_policy_url;
 		}
 		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_url_parameter . '"});';
 		try {
