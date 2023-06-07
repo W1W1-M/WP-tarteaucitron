@@ -11,7 +11,8 @@ The [tarteaucitron cookie manager](https://tarteaucitron.io/) in a WordPress plu
 Download the latest WPtarteaucitron.zip from [releases](https://git.manche.io/si/web/wptarteaucitron/-/releases) and install it via WordPress plugin admin menu.
 
 ## Usage
-Upon activation this plugin will create a *tarteaucitron-script.js* file with default tarteaucitron parameters. The privacy URL is configurable via the WPtarteaucitron item in tools menu. Follow [tarteaucitron installation guide](https://tarteaucitron.io/en/install/) accordingly to add required services.
+- Upon activation this plugin will create a *tarteaucitron-script.js* file with default tarteaucitron parameters. The privacy URL can be configured via the WPtarteaucitron item in tools menu to use the WordPress privacy policy page URL or a custom URL. 
+- To add required services follow the services step in the [tarteaucitron installation guide](https://tarteaucitron.io/en/install/) accordingly.
 
 ## Support
 Open an issue on our GitLab for technical issues.
@@ -23,8 +24,8 @@ Past, last & unreleased changes can be found in the [changelog](CHANGELOG.md)
 Let's stay organised : open an issue and discuss with project maintainer before submitting a pull request.
 
 ## Authors and acknowledgment
-- [tarteaucitron cookie management system](https://github.com/AmauriC/tarteaucitron.js) by [Amauri Champeaux](https://amauri.io/)
-- Coded with care by [William Mead](https://git.manche.io/wmead)
+- Coded with care by [William Mead](https://git.manche.io/wmead) AKA the Hacking Hipster
+- [tarteaucitron cookie management system](https://github.com/AmauriC/tarteaucitron.js) scripts by [Amauri Champeaux](https://amauri.io/)
 
 ## Translation
 Follow standard WordPress plugin localization techniques and submit a pull request.
