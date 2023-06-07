@@ -309,18 +309,8 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	public function setup_javascript_file(): void {
-		try {
-			$privacy_policy_url = $this->wp_tarteaucitron_options->get_privacy_policy_url();
-		} catch( Exception $exception ) {
-			trigger_error( $exception->getMessage() );
-			$privacy_policy_url = '';
-		}
-		if( empty( $privacy_policy_url ) ) {
-			$privacy_url_parameter = site_url();
-		} else {
-			$privacy_url_parameter = $privacy_policy_url;
-		}
-		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_url_parameter . '"});';
+		$privacy_policy_url = $this->wp_tarteaucitron_options->get_privacy_policy_url();
+		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_policy_url . '"});';
 		try {
 			$javascript_file = fopen( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE, 'w+' );
 			fwrite( $javascript_file, $javascript);
@@ -330,7 +320,6 @@ class WP_tarteaucitron_Setup {
 			error_log( $exception->getMessage() );
 		}
 	}
-
 }
 
 ?>

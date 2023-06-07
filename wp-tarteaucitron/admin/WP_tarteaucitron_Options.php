@@ -252,22 +252,23 @@ class WP_tarteaucitron_Options {
 	/**
      * @since 1.0.0
      *
-	 * @throws Exception
-     *
      * @return string
 	 */
 	public function get_privacy_policy_url(): string {
+		$default_privacy_policy_url = site_url();
         if( $this->get_option_use_wp_privacy_policy_page() ) {
             $wp_privacy_policy_url = get_privacy_policy_url();
             if( empty( $wp_privacy_policy_url ) ) {
-	            throw new Exception( 'WordPress privacy policy page not set' );
+                trigger_error( 'WordPress privacy policy page not set' );
+	            return $default_privacy_policy_url;
             } else {
                 return $wp_privacy_policy_url;
             }
         } else {
             $tarteaucitron_privacy_policy_url = $this->get_option_wp_tarteaucitron_privacy_policy_url();
             if( empty( $tarteaucitron_privacy_policy_url ) ) {
-	            throw new Exception( 'tarteaucitron privacy policy URL not set' );
+	            trigger_error( 'tarteaucitron privacy policy URL not set' );
+	            return $default_privacy_policy_url;
             } else {
                 return $tarteaucitron_privacy_policy_url;
             }
