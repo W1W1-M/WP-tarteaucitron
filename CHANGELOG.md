@@ -9,14 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release
-- tarteaucitron.js v1.11.0
-- GitLab CI pipeline
-
 ### Fixed
 
 ### Changed
 
 ### Removed
 
-## [1.0.0] - 2023-05-XX
+## [1.0.0] - 2023-06-07
+
+### Added
+
+- Initial plugin release
+- User configurable privacy URL
+- tarteaucitron.js v1.12.0
+- GitLab CI pipeline
