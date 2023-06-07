@@ -325,6 +325,7 @@ class WP_tarteaucitron_Setup {
 			fwrite( $javascript_file, $javascript);
 			fclose($javascript_file);
 			trigger_error( 'tarteaucitron js script created' );
+			error_log( 'tarteaucitron js script created');
 		} catch ( Exception $exception ) {
 			error_log( $exception->getMessage() );
 		}

@@ -115,7 +115,7 @@ class WP_tarteaucitron_Options {
 	protected function setup_use_wp_privacy_policy_page_setting(): void {
 		$form_id_setting_args = array(
 			'sanitize_callback' => array( &$this, 'sanitize_use_wp_privacy_policy_page_setting_input' ),
-			'default' => ''
+			'default' => 'false'
 		);
 		register_setting(
 			'wp_tarteaucitron_options',
@@ -140,11 +140,11 @@ class WP_tarteaucitron_Options {
 	 * @return bool
 	 */
 	public function sanitize_use_wp_privacy_policy_page_setting_input( $input ): bool {
-        if( $input == 'true' ) {
-            return true;
-        } else {
-            return false;
-        }
+		if( $input == 'on' ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -153,15 +153,14 @@ class WP_tarteaucitron_Options {
 	 * @return void
 	 */
 	public function use_wp_privacy_policy_page_field_callback(): void {
-        $html = '<label for="wp_tarteaucitron_use_wp_privacy_policy_page"></label>';
-        $html .= '<p><input type="checkbox" id="wp_tarteaucitron_use_wp_privacy_policy_page" name="wp_tarteaucitron_use_wp_privacy_policy_page"';
-        if( $this->get_option_use_wp_privacy_policy_page() ) {
-            $html .= 'value="true" checked';
-        } else {
-	        $html .= 'value="false" checked';
-        }
-        $html .= '/></p>';
-        echo $html;
+		$html = '<p>';
+		$html = '<label for="wp_tarteaucitron_use_wp_privacy_policy_page" hidden>wp_tarteaucitron_use_wp_privacy_policy_page</label>';
+		$html .= '<input type="checkbox" id="wp_tarteaucitron_use_wp_privacy_policy_page" name="wp_tarteaucitron_use_wp_privacy_policy_page"';
+		if( $this->get_option_use_wp_privacy_policy_page() ) {
+			$html .= 'value="on" checked';
+		}
+		$html .= '/></p>';
+		echo $html;
 	}
 
 	/**
