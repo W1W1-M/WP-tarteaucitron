@@ -189,7 +189,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_privacy_policy_url_field',
-			__( 'Privacy policy URL', 'wp-tarteaucitron' ), array( &$this, 'privacy_policy_url_field_callback' ),
+			__( 'Custom privacy policy URL', 'wp-tarteaucitron' ), array( &$this, 'privacy_policy_url_field_callback' ),
 			'wp-tarteaucitron',
 			'wp_tarteaucitron_settings_section'
 		);
