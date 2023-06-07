@@ -81,7 +81,8 @@ class WP_tarteaucitron_Options {
 	 */
 	public function setup_settings(): void {
 		$this->setup_settings_section();
-		$this->setup_privacy_url_setting();
+        $this->setup_use_wp_privacy_policy_page_setting();
+		$this->setup_privacy_policy_url_setting();
 	}
 
 	/**
@@ -111,19 +112,73 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return void
 	 */
-	protected function setup_privacy_url_setting(): void {
+	protected function setup_use_wp_privacy_policy_page_setting(): void {
 		$form_id_setting_args = array(
-			'sanitize_callback' => array( &$this, 'sanitize_privacy_url_setting_input' ),
+			'sanitize_callback' => array( &$this, 'sanitize_use_wp_privacy_policy_page_setting_input' ),
 			'default' => ''
 		);
 		register_setting(
 			'wp_tarteaucitron_options',
-			'wp_tarteaucitron_privacy_url',
+			'wp_tarteaucitron_use_wp_privacy_policy_page',
 			$form_id_setting_args
 		);
 		add_settings_field(
-			'wp_tarteaucitron_privacy_url_field',
-			__( 'Privacy policy URL', 'wp-tarteaucitron' ), array( &$this, 'privacy_url_field_callback' ),
+			'wp_tarteaucitron_use_wp_privacy_policy_page_field',
+			__( 'Use WordPress privacy policy page', 'wp-tarteaucitron' ), array( &$this,
+			'use_wp_privacy_policy_page_field_callback'
+		),
+			'wp-tarteaucitron',
+			'wp_tarteaucitron_settings_section'
+		);
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @param $input
+	 *
+	 * @return bool
+	 */
+	public function sanitize_use_wp_privacy_policy_page_setting_input( $input ): bool {
+		return $input;
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function use_wp_privacy_policy_page_field_callback(): void {
+		echo '<input type="checkbox" id="wp_tarteaucitron_use_wp_privacy_policy_page" name="wp_tarteaucitron_use_wp_privacy_policy_page" value="' . $this->get_option_use_wp_privacy_policy_page() . '/>';
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	protected function get_option_use_wp_privacy_policy_page(): bool {
+		return get_option( 'wp_tarteaucitron_use_wp_privacy_policy_page' );
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	protected function setup_privacy_policy_url_setting(): void {
+		$form_id_setting_args = array(
+			'sanitize_callback' => array( &$this, 'sanitize_privacy_policy_url_setting_input' ),
+			'default' => ''
+		);
+		register_setting(
+			'wp_tarteaucitron_options',
+			'wp_tarteaucitron_privacy_policy_url',
+			$form_id_setting_args
+		);
+		add_settings_field(
+			'wp_tarteaucitron_privacy_policy_url_field',
+			__( 'Privacy policy URL', 'wp-tarteaucitron' ), array( &$this, 'privacy_policy_url_field_callback' ),
 			'wp-tarteaucitron',
 			'wp_tarteaucitron_settings_section'
 		);
@@ -136,7 +191,7 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return string
 	 */
-	public function sanitize_privacy_url_setting_input( $input ): string {
+	public function sanitize_privacy_policy_url_setting_input( $input ): string {
 		return $input;
 	}
 
@@ -145,8 +200,8 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return void
 	 */
-	public function privacy_url_field_callback(): void {
-        echo '<input type="url" id="wp_tarteaucitron_privacy_url" name="wp_tarteaucitron_privacy_url" value=" ' . $this->get_privacy_url() . ' " placeholder=" ' . site_url() . ' " pattern="https?://.+" required/>';
+	public function privacy_policy_url_field_callback(): void {
+        echo '<input type="url" id="wp_tarteaucitron_privacy_policy_url" name="wp_tarteaucitron_privacy_policy_url" value=" ' . $this->get_option_wp_tarteaucitron_privacy_policy_url() . ' " placeholder=" ' . site_url() . ' " pattern="https?://.+" required/>';
 	}
 
 	/**
@@ -154,14 +209,39 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return string
 	 */
-	protected function get_privacy_url(): string {
-		return get_option( 'wp_tarteaucitron_privacy_url' );
+	protected function get_option_wp_tarteaucitron_privacy_policy_url(): string {
+		return get_option( 'wp_tarteaucitron_privacy_policy_url' );
 	}
 
-	public function plugin_settings_link( $links ) {
+	/**
+     * @since 1.0.0
+     *
+	 * @param $links
+	 *
+	 * @return mixed
+	 */
+	public function plugin_settings_link( $links ): mixed {
 		$links[] = '<a href="' . admin_url( 'options-general.php?page=wp-tarteaucitron' ) . '">' . __('Settings') . '</a>';
 		return $links;
 	}
+
+    public function get_privacy_policy_url(): string {
+        if( $this->get_option_use_wp_privacy_policy_page() ) {
+            $wp_privacy_policy_url = get_privacy_policy_url();
+            if( empty( $wp_privacy_policy_url ) ) {
+                trigger_error( 'WordPress privacy policy page not set' );
+            } else {
+                return $wp_privacy_policy_url;
+            }
+        } else {
+            $tarteaucitron_privacy_policy_url = $this->get_option_wp_tarteaucitron_privacy_policy_url();
+            if( empty( $tarteaucitron_privacy_policy_url ) ) {
+	            trigger_error( 'tarteaucitron privacy policy URL not set' );
+            } else {
+                return $tarteaucitron_privacy_policy_url;
+            }
+        }
+    }
 
 }
 

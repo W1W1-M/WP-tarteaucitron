@@ -292,7 +292,7 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	public function setup_javascript_file(): void {
-		$privacy_url = get_option( 'wp_tarteaucitron_privacy_url' );
+		$privacy_url = get_option( 'wp_tarteaucitron_privacy_policy_url' );
 		if( ! $privacy_url ) {
 			$privacy_url_parameter = site_url();
 		} else {
