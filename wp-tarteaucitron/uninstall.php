@@ -41,7 +41,8 @@ function wordpress_plugin_uninstall_called(): bool {
  * @return void
  */
 function delete_options(): void {
-	delete_option( 'wp_tarteaucitron_privacy_url' );
+	delete_option( 'wp_tarteaucitron_privacy_policy_url' );
+	delete_option( 'wp_tarteaucitron_use_wp_privacy_policy_page' );
 }
 
 ?>
