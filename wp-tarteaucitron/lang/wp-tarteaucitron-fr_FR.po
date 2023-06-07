@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-tarteaucitron\n"
-"POT-Creation-Date: 2023-06-06 09:26+0200\n"
-"PO-Revision-Date: 2023-06-06 09:27+0200\n"
+"POT-Creation-Date: 2023-06-07 09:08+0200\n"
+"PO-Revision-Date: 2023-06-07 09:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -14,19 +14,18 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/class-wp-tarteaucitron-options.php:55
+#: admin/WP_tarteaucitron_Options.php:55
 msgid ""
 "You are not authorised to manage these settings. Please contact your "
 "WordPress administrator."
 msgstr ""
-"Vous n'êtes pas autorisé a gérer ces paramètres. Merci de contacter "
-"votre administrateur WordPress."
+"Vous n'êtes pas autorisé a gérer ces paramètres. Merci de contacter votre "
+"administrateur WordPress."
 
-#: admin/class-wp-tarteaucitron-options.php:95
-#: admin/class-wp-tarteaucitron-options.php:162
+#: admin/WP_tarteaucitron_Options.php:95 admin/WP_tarteaucitron_Options.php:162
 msgid "Settings"
 msgstr "Paramètres"
 
-#: admin/class-wp-tarteaucitron-options.php:126
-msgid "WP-tarteaucitron privacy URL"
-msgstr ""
+#: admin/WP_tarteaucitron_Options.php:126
+msgid "Privacy policy URL"
+msgstr "URL politique de confidentialité"
