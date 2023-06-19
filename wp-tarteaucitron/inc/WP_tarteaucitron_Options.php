@@ -1,5 +1,7 @@
 <?php /** @noinspection PhpRedundantClosingTagInspection */
 
+namespace inc;
+
 /**
  * @since 1.0.0
  */
