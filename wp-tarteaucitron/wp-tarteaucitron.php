@@ -40,7 +40,7 @@ wp_tarteaucitron_setup();
 function wp_tarteaucitron_setup(): void {
 	try {
 		spl_autoload_register( 'wp_tarteaucitron_autoload' );
-		$wp_tarteaucitron_setup = new WP_tarteaucitron_Setup();
+		$wp_tarteaucitron_setup = new \inc\WP_tarteaucitron_Setup();
 		$wp_tarteaucitron_setup->init();
 	} catch ( Exception $exception ) {
 		exit( $exception->getMessage() );
@@ -55,8 +55,8 @@ function wp_tarteaucitron_setup(): void {
  * @return void
  */
 function wp_tarteaucitron_autoload( $class ): void {
-	$plugin_dir_path = plugin_dir_path( WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) . 'inc/';
-	require_once $plugin_dir_path . $class . '.php';
+	$class_dir_path = plugin_dir_path( WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) . 'inc/';
+	require_once $class_dir_path . $class . '.php';
 }
 
 ?>
