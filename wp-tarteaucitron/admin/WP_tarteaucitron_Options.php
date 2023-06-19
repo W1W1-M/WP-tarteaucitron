@@ -7,6 +7,11 @@ class WP_tarteaucitron_Options {
 
 	/**
 	 * @since 1.0.0
+	 */
+	public function __construct() {}
+
+	/**
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
