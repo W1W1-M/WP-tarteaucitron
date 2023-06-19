@@ -1,7 +1,8 @@
 # WPtarteaucitron
 
 ## Features
-The [tarteaucitron cookie manager](https://tarteaucitron.io/) in a WordPress plugin. 
+The [tarteaucitron cookie manager](https://tarteaucitron.io/) in a WordPress plugin.
+![WP-tarteaucitron screenshot](wp-tarteaucitron%20screenshot%20FR.png "WP-tarteaucitron screenshot")
 
 ## Prerequisites
 - PHP 7.4 
