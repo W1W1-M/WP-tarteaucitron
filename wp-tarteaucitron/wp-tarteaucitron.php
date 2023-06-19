@@ -40,7 +40,7 @@ wp_tarteaucitron_setup();
 function wp_tarteaucitron_setup(): void {
 	try {
 		spl_autoload_register( 'wp_tarteaucitron_autoload' );
-		$wp_tarteaucitron_setup = new \inc\WP_tarteaucitron_Setup();
+		$wp_tarteaucitron_setup = new WP_tarteaucitron_Setup();
 		$wp_tarteaucitron_setup->init();
 	} catch ( Exception $exception ) {
 		exit( $exception->getMessage() );
