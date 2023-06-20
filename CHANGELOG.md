@@ -15,6 +15,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [1.1.0] - 2023-06-20
+
+### Added
+
+- Plugin archive as release asset
+
+### Fixed
+
+### Changed
+
+### Removed
+
 ## [1.0.0] - 2023-06-19
 
 ### Added
