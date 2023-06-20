@@ -39,4 +39,6 @@ release-job:
     assets:
       links:
       - name: 'WP-tarteaucitron $CI_COMMIT_TAG'
-        url: 'https://git.manche.io/si/web/wptarteaucitron/-/jobs/$CI_JOB_ID/artifacts/wp-tarteaucitron_$CI_COMMIT_TAG.zip'
+        url: 'https://git.manche.io/si/web/wptarteaucitron/-/jobs/$CI_JOB_ID/artifacts/wp-tarteaucitron_$CI_COMMIT_TAG'
+        filepath: './artifacts/wp-tarteaucitron_$CI_COMMIT_TAG.zip'
+        link_type: package
