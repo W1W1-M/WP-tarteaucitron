@@ -18,7 +18,7 @@ package-job:
     - zip -r ./artifacts/wp-tarteaucitron.zip ./wp-tarteaucitron/
     - echo "Plugin packaged."
   artifacts:
-    name: "$CI_JOB_NAME $CI_COMMIT_SHORT_SHA"
+    name: '$CI_JOB_NAME $CI_COMMIT_SHORT_SHA'
     untracked: false
     paths:
       - artifacts/
@@ -29,9 +29,21 @@ release-job:
     - if: $CI_COMMIT_TAG
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
-    - echo "Release $TAG ..."
+    - echo "Release $CI_COMMIT_TAG ..."
     - echo "Released."
+  dependencies:
+    - package-job
+  artifacts:
+    name: 'wp-tarteaucitron_$CI_COMMIT_TAG'
+    untracked: false
+    paths:
+      - artifacts/
   release:
     tag_name: '$CI_COMMIT_TAG'
     description: '$CI_COMMIT_TAG'
     ref: '$CI_COMMIT_SHA'
+    assets:
+      links:
+      - name: 'WP-tarteaucitron $CI_COMMIT_TAG'
+        url: 'https://git.manche.io/si/web/wptarteaucitron/-/jobs/$CI_JOB_ID/artifacts/download'
+        link_type: package
