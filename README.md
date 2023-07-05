@@ -1,4 +1,4 @@
-# WPtarteaucitron
+# WP-tarteaucitron
 
 ## Features
 The [tarteaucitron cookie manager](https://tarteaucitron.io/) in a WordPress plugin.
