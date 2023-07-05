@@ -11,7 +11,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:          WP-tarteaucitron
- * Plugin URI:           https://git.manche.io/si/web/wptarteaucitron
+ * Plugin URI:           https://git.manche.io/wordpress/wptarteaucitron
  * Description:          Plugin to manage cookies with tarteaucitron.js
  * Version:              1.2.0
  * Requires at least:    5.9.5
