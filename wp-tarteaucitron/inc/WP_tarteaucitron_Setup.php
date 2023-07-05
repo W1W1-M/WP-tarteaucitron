@@ -174,9 +174,8 @@ class WP_tarteaucitron_Setup {
 		} else {
 			$exception = new Exception( 'cannot find ' . WP_TARTEAUCITRON_SCRIPT_JS_FILE);
 			error_log( $exception->getMessage() );
-			throw $exception;
+			$this->setup_tarteaucitron_script_js_file();
 		}
-
 	}
 
 	/**
@@ -294,7 +293,7 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	public function setup_tarteaucitron_script_js_file(): void {
-		$privacy_policy_url = $this->wp_tarteaucitron_options->get_privacy_policy_url();
+		$privacy_policy_url = $this->wp_tarteaucitron_options->get_tatrteaucitron_privacy_policy_url();
 		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_policy_url . '"});';
 		try {
 			$javascript_file = fopen( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE, 'w+' );
