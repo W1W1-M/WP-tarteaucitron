@@ -15,7 +15,7 @@
  * Description:          Plugin to manage cookies with tarteaucitron.js
  * Version:              1.2.0
  * Requires at least:    5.9.5
- * Requires PHP:         7.4.33
+ * Requires PHP:         8.0.28
  * Author:               William Mead - Manche Numérique
  * Author URI:           https://www.manchenumerique.fr
  * License:              GNU GPLv3
