@@ -4,7 +4,7 @@
  * WP-tarteaucitron
  *
  * @package         WP-tarteaucitron
- * @version         1.2.0
+ * @version         1.3.0
  * @author          William Mead - Manche Numérique
  * @copyright       2023 Manche Numérique
  * @license         GPL-3.0-or-later
@@ -13,7 +13,7 @@
  * Plugin Name:          WP-tarteaucitron
  * Plugin URI:           https://git.manche.io/wordpress/wptarteaucitron
  * Description:          Plugin to manage cookies with tarteaucitron.js
- * Version:              1.2.0
+ * Version:              1.3.0
  * Requires at least:    5.9.5
  * Requires PHP:         8.0.28
  * Author:               William Mead - Manche Numérique
