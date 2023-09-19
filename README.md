@@ -1,16 +1,16 @@
 # WP-tarteaucitron
 
 ## Features
-The [tarteaucitron cookie manager](https://tarteaucitron.io/) in a WordPress plugin.
+The [tarteaucitron cookie manager](https://tarteaucitron.io/) encapsulated in a WordPress plugin.
 
 ![WP-tarteaucitron screenshot](wp-tarteaucitron%20screenshot%20FR.png "WP-tarteaucitron screenshot")
 
 ## Prerequisites
-- PHP 7.4 
+- PHP 8.0 
 - WordPress 5.9
 
 ## Installation
-Download the latest WPtarteaucitron.zip from [releases](https://git.manche.io/wordpress/wptarteaucitron/-/releases) and install it via WordPress plugin admin menu.
+Download the latest WPtarteaucitron.zip package from [releases](https://git.manche.io/wordpress/wptarteaucitron/-/releases) and install it via WordPress plugin admin menu.
 
 ## Usage
 - Upon activation this plugin will create a *tarteaucitron-script.js* file with default tarteaucitron parameters. The privacy URL can be configured via the WPtarteaucitron item in tools menu to use the WordPress privacy policy page URL or a custom URL. 
@@ -33,7 +33,8 @@ Let's stay organised : open an issue and discuss with project maintainer before 
 Follow standard WordPress plugin localization techniques and submit a pull request.
 
 ## License
-This plugin is available under the terms of the GNU GPLv3 license. See the [LICENSE](LICENSE) file for a full copy of the license.
+- This plugin is available under the terms of the GNU GPLv3 license. See the [LICENSE](LICENSE) file for a full copy of the license. 
+- The tarteaucitron cookie manager scripts are available under the [MIT license](https://github.com/AmauriC/tarteaucitron.js/blob/master/LICENSE).
 
 ## Project status
-New & In progress
+Stable
