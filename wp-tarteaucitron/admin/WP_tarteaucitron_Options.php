@@ -259,7 +259,7 @@ class WP_tarteaucitron_Options {
      *
      * @return string
 	 */
-	public function get_privacy_policy_url(): string {
+	public function get_tatrteaucitron_privacy_policy_url(): string {
 		$default_privacy_policy_url = site_url();
         if( $this->get_option_use_wp_privacy_policy_page() ) {
             $wp_privacy_policy_url = get_privacy_policy_url();

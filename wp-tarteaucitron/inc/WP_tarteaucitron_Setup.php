@@ -96,7 +96,7 @@ class WP_tarteaucitron_Setup {
 			add_action( 'init', array( $this, 'load_textdomain' ), 10, 0 );
 			add_action( 'admin_init', array( $this,'just_activated_setup' ), 10, 0 );
 			add_action( 'plugins_loaded', array( $this,'options_init' ), 10, 0 );
-			add_action( 'wp_enqueue_scripts', array( $this,'scripts' ), 10, 0 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this,'check_scripts_enqueued' ), 99, 0 );
 			add_action( 'add_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 			add_action( 'add_option_wp_tarteaucitron_privacy_policy_url', array( $this, 'setup_tarteaucitron_script_js_file' ) );
@@ -151,74 +151,79 @@ class WP_tarteaucitron_Setup {
 	/**
 	 * @since 1.0.0
 	 *
-	 * @throws Exception
-	 *
 	 * @return void
 	 */
-	public function scripts(): void {
+	public function load_scripts(): void {
 		try {
 			$tarteaucitron_version = $this->tarteaucitron_script_version();
-		} catch ( Exception ) {
-			error_log( 'WP-tarteaucitron script version error. Use default version.' );
-			$tarteaucitron_version = false;
-		}
-		if( $this->tarteaucitron_js_file_exists() ) {
-			wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ), array(), $tarteaucitron_version );
-		} else {
-			$exception = new Exception( 'cannot find ' . WP_TARTEAUCITRON_JS_FILE);
+			$this->enqueue_tarteaucitron_js( $tarteaucitron_version );
+			$this->enqueue_tarteaucitron_script_js();
+		} catch ( Exception $exception ) {
 			error_log( $exception->getMessage() );
-			throw $exception;
 		}
-		if( $this->tarteaucitron_script_js_file_exists() ) {
-			wp_enqueue_script( 'tarteaucitron_script_js', plugins_url( WP_TARTEAUCITRON_SCRIPT_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) );
-		} else {
-			$exception = new Exception( 'cannot find ' . WP_TARTEAUCITRON_SCRIPT_JS_FILE);
-			error_log( $exception->getMessage() );
-			throw $exception;
-		}
-
 	}
 
 	/**
 	 * @since 1.0.0
 	 *
-	 * @throws Exception
-	 *
-	 * @return string
+	 * @return mixed
 	 */
-	public function tarteaucitron_script_version(): string {
+	public function tarteaucitron_script_version(): mixed {
+		$tarteaucitron_version = false;
 		if( $this->tarteaucitron_package_json_file_exists() ) {
 			$tarteaucitron_package_json = file_get_contents( $this->tarteaucitron_package_json_file_path() );
 			$decoded_tarteaucitron_package_json = json_decode( $tarteaucitron_package_json, false );
 			if( $decoded_tarteaucitron_package_json == null ) {
-				$exception = new Exception( 'cannot decode tarteaucitron package json');
-				error_log( $exception->getMessage() );
-				throw $exception;
+				$exception = new Exception( 'Cannot decode tarteaucitron package json. ');
+				trigger_error( $exception->getMessage() . 'Script version error. Use default version.' );
+			} elseif( property_exists( $decoded_tarteaucitron_package_json, 'version' ) ) {
+				$tarteaucitron_version = $decoded_tarteaucitron_package_json->version;
+				trigger_error( 'tarteaucitron v' . $tarteaucitron_version );
 			} else {
-				if( property_exists( $decoded_tarteaucitron_package_json, 'version' ) ) {
-					$tarteaucitron_version = $decoded_tarteaucitron_package_json->version;
-					trigger_error( 'tarteaucitron v' . $tarteaucitron_version );
-					return $tarteaucitron_version;
-				} else {
-					$exception = new Exception( 'tarteaucitron package version not found' );
-					error_log( $exception->getMessage() );
-					throw $exception;
-				}
+				$exception = new Exception( 'tarteaucitron package version not found. ' );
+				trigger_error( $exception->getMessage() . 'Script version error. Use default version.' );
 			}
 		} else {
-			$exception = new Exception( $this->tarteaucitron_package_json_file_path() . ' not found' );
+			$exception = new Exception( $this->tarteaucitron_package_json_file_path() . ' not found. ' );
+			trigger_error( $exception->getMessage() . 'Script version error. Use default version.' );
+		}
+		return $tarteaucitron_version;
+	}
+
+	/**
+	 * @since 1.2.0
+	 *
+	 * @param $tarteaucitron_version
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 *
+	 */
+	protected function enqueue_tarteaucitron_js( $tarteaucitron_version ): void {
+		if ( $this->tarteaucitron_js_file_missing() ) {
+			$exception = new Exception( 'cannot find ' . WP_TARTEAUCITRON_JS_FILE);
 			error_log( $exception->getMessage() );
 			throw $exception;
+		} else {
+			wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ), array(), $tarteaucitron_version );
 		}
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.2.0
 	 *
-	 * @return bool
+	 * @throws Exception
+	 *
+	 * @return void
 	 */
-	protected function tarteaucitron_js_file_exists(): bool {
-		return file_exists( $this->tarteaucitron_js_file_path() );
+	protected function enqueue_tarteaucitron_script_js(): void {
+		if( $this->tarteaucitron_script_js_file_missing() ) {
+			$exception = new Exception( 'cannot find ' . WP_TARTEAUCITRON_SCRIPT_JS_FILE);
+			trigger_error( $exception->getMessage() );
+			$this->setup_tarteaucitron_script_js_file();
+		}
+		wp_enqueue_script( 'tarteaucitron_script_js', plugins_url( WP_TARTEAUCITRON_SCRIPT_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) );
 	}
 
 	/**
@@ -226,8 +231,17 @@ class WP_tarteaucitron_Setup {
 	 *
 	 * @return bool
 	 */
-	protected function tarteaucitron_script_js_file_exists(): bool {
-		return file_exists( $this->tarteaucitron_script_js_file_path() );
+	protected function tarteaucitron_js_file_missing(): bool {
+		return !file_exists( $this->tarteaucitron_js_file_path() );
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	protected function tarteaucitron_script_js_file_missing(): bool {
+		return !file_exists( $this->tarteaucitron_script_js_file_path() );
 	}
 
 	/**
@@ -289,12 +303,10 @@ class WP_tarteaucitron_Setup {
 	/**
 	 * @since 1.0.0
 	 *
-	 * @throws Exception
-	 *
 	 * @return void
 	 */
 	public function setup_tarteaucitron_script_js_file(): void {
-		$privacy_policy_url = $this->wp_tarteaucitron_options->get_privacy_policy_url();
+		$privacy_policy_url = $this->wp_tarteaucitron_options->get_tatrteaucitron_privacy_policy_url();
 		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_policy_url . '"});';
 		try {
 			$javascript_file = fopen( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE, 'w+' );

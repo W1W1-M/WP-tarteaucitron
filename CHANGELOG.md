@@ -15,6 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [1.2.0] - 2023-07-05
+
+### Fixed
+
+- Missing tarteaucitron-script.js after plugin update
+
+### Changed
+
+- Updated tarteaucitron.js to v1.13.0
+- Cleaned code
+
 ## [1.1.3] - 2023-06-20
 
 ### Changed

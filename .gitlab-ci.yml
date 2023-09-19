@@ -1,8 +1,5 @@
 # GitLab CI/CD configuration file https://docs.gitlab.com/ee/ci/yaml/gitlab_ci_yaml.html
 
-variables:
-  GIT_SUBMODULE_STRATEGY: normal
-
 stages:
   - package
   - release
@@ -10,13 +7,13 @@ stages:
 package-job:
   stage: package
   script:
-    - echo "Packaging plugin ..."
+    - echo "Packaging WP-tarteaucitron plugin ..."
     - mkdir artifacts
     - cp LICENSE wp-tarteaucitron/LICENSE
     - cp README.md wp-tarteaucitron/README.md
     - cp CHANGELOG.md wp-tarteaucitron/CHANGELOG.md
     - zip -r ./artifacts/wp-tarteaucitron.zip ./wp-tarteaucitron/
-    - echo "Plugin packaged."
+    - echo "WP-tarteaucitron plugin packaged."
   artifacts:
     name: '$CI_JOB_NAME $CI_COMMIT_SHORT_SHA'
     untracked: false
@@ -27,10 +24,9 @@ release-job:
   stage: release
   rules:
     - if: $CI_COMMIT_TAG
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
-    - echo "Release $CI_COMMIT_TAG ..."
-    - echo "Released."
+    - echo "Release WP-tarteaucitron plugin $CI_COMMIT_TAG ..."
+    - echo "WP-tarteaucitron plugin released."
   dependencies:
     - package-job
   artifacts:
@@ -45,5 +41,5 @@ release-job:
     assets:
       links:
       - name: 'WP-tarteaucitron $CI_COMMIT_TAG'
-        url: 'https://git.manche.io/si/web/wptarteaucitron/-/jobs/$CI_JOB_ID/artifacts/download'
+        url: 'https://git.manche.io/wordpress/wptarteaucitron/-/jobs/$CI_JOB_ID/artifacts/download'
         link_type: package
