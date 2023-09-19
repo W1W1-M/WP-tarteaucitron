@@ -5,8 +5,8 @@
  *
  * @package         WP-tarteaucitron
  * @version         1.3.0
- * @author          William Mead - Manche Numérique
- * @copyright       2023 Manche Numérique
+ * @author          William Mead @ Manche Numérique
+ * @copyright       2023 - William Mead @ Manche Numérique
  * @license         GPL-3.0-or-later
  *
  * @wordpress-plugin
@@ -16,7 +16,7 @@
  * Version:              1.3.0
  * Requires at least:    5.9.5
  * Requires PHP:         8.0.28
- * Author:               William Mead - Manche Numérique
+ * Author:               William Mead @ Manche Numérique
  * Author URI:           https://www.manchenumerique.fr
  * License:              GNU GPLv3
  * License URI:          https://www.gnu.org/licenses/gpl-3.0.html
