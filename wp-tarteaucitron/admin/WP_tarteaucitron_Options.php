@@ -1,4 +1,5 @@
 <?php /** @noinspection PhpRedundantClosingTagInspection */
+declare( strict_types=1 );
 
 /**
  * @since 1.0.0
@@ -249,7 +250,7 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return mixed
 	 */
-	public function plugin_settings_link( $links ): mixed {
+	public function plugin_settings_link( $links ): array {
 		$links[] = '<a href="' . admin_url( 'options-general.php?page=wp-tarteaucitron' ) . '">' . __('Settings') . '</a>';
 		return $links;
 	}

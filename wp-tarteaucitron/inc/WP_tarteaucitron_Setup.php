@@ -1,4 +1,5 @@
 <?php /** @noinspection PhpRedundantClosingTagInspection */
+declare( strict_types=1 );
 
 /**
  * @since 1.0.0
@@ -95,7 +96,7 @@ class WP_tarteaucitron_Setup {
 		try {
 			add_action( 'init', array( $this, 'load_textdomain' ), 10, 0 );
 			add_action( 'admin_init', array( $this,'just_activated_setup' ), 10, 0 );
-			add_action( 'plugins_loaded', array( $this,'options_init' ), 10, 0 );
+			add_action( 'plugins_loaded', array( $this->wp_tarteaucitron_options,'init' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this,'check_scripts_enqueued' ), 99, 0 );
 			add_action( 'add_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this, 'setup_tarteaucitron_script_js_file' ) );
@@ -137,15 +138,6 @@ class WP_tarteaucitron_Setup {
 			trigger_error( 'User is not authorized to run activation setup' );
 		}
 
-	}
-
-	/**
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function options_init(): void {
-		$this->wp_tarteaucitron_options->init();
 	}
 
 	/**
@@ -232,7 +224,8 @@ class WP_tarteaucitron_Setup {
 	 * @return bool
 	 */
 	protected function tarteaucitron_js_file_missing(): bool {
-		return !file_exists( $this->tarteaucitron_js_file_path() );
+		$tarteaucitron_js_file_path = trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE;
+		return !file_exists( $tarteaucitron_js_file_path );
 	}
 
 	/**
@@ -241,7 +234,8 @@ class WP_tarteaucitron_Setup {
 	 * @return bool
 	 */
 	protected function tarteaucitron_script_js_file_missing(): bool {
-		return !file_exists( $this->tarteaucitron_script_js_file_path() );
+		$tarteaucitron_script_js_file_path = trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE;
+		return !file_exists( $tarteaucitron_script_js_file_path );
 	}
 
 	/**
@@ -251,24 +245,6 @@ class WP_tarteaucitron_Setup {
 	 */
 	protected function tarteaucitron_package_json_file_exists(): bool {
 		return file_exists( $this->tarteaucitron_package_json_file_path() );
-	}
-
-	/**
-	 * @since 1.0.0
-	 *
-	 * @return string
-	 */
-	protected function tarteaucitron_js_file_path(): string {
-		return trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE;
-	}
-
-	/**
-	 * @since 1.0.0
-	 *
-	 * @return string
-	 */
-	protected function tarteaucitron_script_js_file_path(): string {
-		return trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE;
 	}
 
 	/**
