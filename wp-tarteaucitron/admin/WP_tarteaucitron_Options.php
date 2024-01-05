@@ -1,4 +1,5 @@
 <?php /** @noinspection PhpRedundantClosingTagInspection */
+declare( strict_types=1 );
 
 /**
  * @since 1.0.0
@@ -171,9 +172,9 @@ class WP_tarteaucitron_Options {
 	/**
 	 * @since 1.0.0
 	 *
-	 * @return bool
+	 * @return mixed
 	 */
-	protected function get_option_use_wp_privacy_policy_page(): bool {
+	protected function get_option_use_wp_privacy_policy_page(): mixed {
 		return get_option( 'wp_tarteaucitron_use_wp_privacy_policy_page' );
 	}
 
@@ -236,9 +237,9 @@ class WP_tarteaucitron_Options {
 	/**
 	 * @since 1.0.0
 	 *
-	 * @return string
+	 * @return mixed
 	 */
-	protected function get_option_wp_tarteaucitron_privacy_policy_url(): string {
+	protected function get_option_wp_tarteaucitron_privacy_policy_url(): mixed {
 		return get_option( 'wp_tarteaucitron_privacy_policy_url' );
 	}
 
@@ -247,11 +248,11 @@ class WP_tarteaucitron_Options {
      *
 	 * @param $links
 	 *
-	 * @return mixed
+	 * @return array
 	 */
-	public function plugin_settings_link( $links ): mixed {
-		$links[] = '<a href="' . admin_url( 'options-general.php?page=wp-tarteaucitron' ) . '">' . __('Settings') . '</a>';
-		return $links;
+	public function plugin_settings_link( $links ): array {
+		$plugin_setting_link[] = '<a href="' . admin_url( 'options-general.php?page=wp-tarteaucitron' ) . '">' . __('Settings') . '</a>';
+		return array_merge( $links, $plugin_setting_link );
 	}
 
 	/**

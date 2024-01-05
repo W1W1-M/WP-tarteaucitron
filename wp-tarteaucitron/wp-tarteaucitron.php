@@ -1,4 +1,5 @@
 <?php /** @noinspection PhpRedundantClosingTagInspection */
+declare( strict_types=1 );
 
 /**
  * WP-tarteaucitron
