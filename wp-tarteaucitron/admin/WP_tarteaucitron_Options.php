@@ -172,9 +172,9 @@ class WP_tarteaucitron_Options {
 	/**
 	 * @since 1.0.0
 	 *
-	 * @return bool
+	 * @return mixed
 	 */
-	protected function get_option_use_wp_privacy_policy_page(): bool {
+	protected function get_option_use_wp_privacy_policy_page(): mixed {
 		return get_option( 'wp_tarteaucitron_use_wp_privacy_policy_page' );
 	}
 
