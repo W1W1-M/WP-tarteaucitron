@@ -54,7 +54,7 @@ class WP_tarteaucitron_Options {
 		echo '<div class="wrap"><div class=""><h1>' . get_admin_page_title() . '</h1>';
 		echo '<h4>tarteaucitron.js version : ' . $this->wp_tarteaucitron_script_version . '</h4>';
 		if ( current_user_can( 'manage_options' ) ) {
-			echo $this->setup_settings_form();
+			$this->setup_settings_form();
 		} else {
 			echo '<h3>' . _e( 'You are not authorised to manage these settings. Please contact your WordPress administrator.', 'wpforms-cpt' ) . '</h3>';
 		}
