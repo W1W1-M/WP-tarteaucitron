@@ -6,13 +6,22 @@ declare( strict_types=1 );
  */
 class WP_tarteaucitron_Setup {
 
+	/**
+	 * @since 1.0.0
+	 */
 	public WP_tarteaucitron_Options $wp_tarteaucitron_options;
+
+	/**
+	 * @since 1.5.0
+	 */
+	protected string $wp_tarteaucitron_script_version;
 
 	/**
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->wp_tarteaucitron_options = new WP_tarteaucitron_Options();
+		$this->wp_tarteaucitron_script_version = $this->tarteaucitron_script_version();
+		$this->wp_tarteaucitron_options = new WP_tarteaucitron_Options($this->wp_tarteaucitron_script_version);
 	}
 
 	/**
