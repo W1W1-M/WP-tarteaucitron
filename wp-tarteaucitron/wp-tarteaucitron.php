@@ -1,11 +1,23 @@
 <?php /** @noinspection PhpRedundantClosingTagInspection */
 declare( strict_types=1 );
 
+/*
+ * This file is part of WP-tarteaucitron.
+ *
+ * WP-tarteaucitron is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * WP-tarteaucitron is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 /**
  * WP-tarteaucitron
  *
  * @package         WP-tarteaucitron
- * @version         1.4.0
+ * @version         1.5.0
  * @author          William Mead @ Manche Numérique
  * @copyright       2023 - William Mead @ Manche Numérique
  * @license         GPL-3.0-or-later
@@ -14,7 +26,7 @@ declare( strict_types=1 );
  * Plugin Name:          WP-tarteaucitron
  * Plugin URI:           https://git.manche.io/wordpress/wptarteaucitron
  * Description:          Plugin to manage cookies with tarteaucitron.js
- * Version:              1.4.0
+ * Version:              1.5.0
  * Requires at least:    5.9.5
  * Requires PHP:         8.0.28
  * Author:               William Mead @ Manche Numérique

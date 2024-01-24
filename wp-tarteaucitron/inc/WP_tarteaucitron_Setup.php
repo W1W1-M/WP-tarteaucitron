@@ -1,18 +1,39 @@
 <?php /** @noinspection PhpRedundantClosingTagInspection */
 declare( strict_types=1 );
 
+/*
+ * This file is part of WP-tarteaucitron.
+ *
+ * WP-tarteaucitron is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * WP-tarteaucitron is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 /**
  * @since 1.0.0
  */
 class WP_tarteaucitron_Setup {
 
+	/**
+	 * @since 1.0.0
+	 */
 	public WP_tarteaucitron_Options $wp_tarteaucitron_options;
+
+	/**
+	 * @since 1.5.0
+	 */
+	protected string $wp_tarteaucitron_script_version;
 
 	/**
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->wp_tarteaucitron_options = new WP_tarteaucitron_Options();
+		$this->wp_tarteaucitron_script_version = $this->tarteaucitron_script_version();
+		$this->wp_tarteaucitron_options = new WP_tarteaucitron_Options($this->wp_tarteaucitron_script_version);
 	}
 
 	/**
