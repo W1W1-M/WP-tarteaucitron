@@ -17,7 +17,7 @@ declare( strict_types=1 );
  * WP-tarteaucitron
  *
  * @package         WP-tarteaucitron
- * @version         1.5.0
+ * @version         1.6.0
  * @author          William Mead @ Manche Numérique
  * @copyright       2023 - William Mead @ Manche Numérique
  * @license         GPL-3.0-or-later
