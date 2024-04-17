@@ -29,6 +29,7 @@ Let's stay organised : open an issue and discuss with project maintainer before 
 - Developed in Normandy, France @ [Manche Numérique](https://www.manchenumerique.fr)
 - Coded with care by [William Mead](https://git.manche.io/wmead) (AKA the Hacking Hipster)
 - [tarteaucitron cookie management system](https://github.com/AmauriC/tarteaucitron.js) scripts by [Amauri Champeaux](https://amauri.io/)
+- [Schneider Clément](https://github.com/clementtt1)
 
 ## Translation
 Follow standard WordPress plugin localization techniques and submit a pull request.
