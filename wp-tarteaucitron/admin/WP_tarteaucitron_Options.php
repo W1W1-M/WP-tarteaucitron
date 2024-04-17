@@ -494,11 +494,11 @@ class WP_tarteaucitron_Options {
      *
      * @return string
      */
-    public function sanitize_remove_credit_input( $input ): string {
-        if($input == 1){
-            return "true";
-        } else{
-            return "false";
+    public function sanitize_remove_credit_input( $input ): bool {
+        if( $input == 'on' ) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -509,15 +509,14 @@ class WP_tarteaucitron_Options {
      */
     public function use_wp_remove_credit_callback(): void {
         $html = '<p>';
-        $html .= '<select id="wp_tarteaucitron_remove_credit" name="wp_tarteaucitron_remove_credit" />';
-        $html .= '<option value="1">Oui</option>';
-        $html .= '<option value="2">Non</option>';
-        $html .= '</select>';
-        $html .= '</p>';
+        $html .= '<label for="wp_tarteaucitron_remove_credit_callback" hidden>wp_tarteaucitron_use_wp_privacy_policy_page</label>';
+        $html .= '<input type="checkbox" id="wp_tarteaucitron_remove_credit_callback" name="wp_tarteaucitron_remove_credit_callback"';
+        if( $this->get_option_use_wp_privacy_policy_page() ) {
+            $html .= 'value="on" checked';
+        }
+        $html .= '/></p>';
         echo $html;
     }
-
-
 
 
 
