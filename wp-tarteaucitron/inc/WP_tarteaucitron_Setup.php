@@ -304,8 +304,12 @@ class WP_tarteaucitron_Setup {
 	 */
 	public function setup_tarteaucitron_script_js_file(): void {
 		$privacy_policy_url = $this->wp_tarteaucitron_options->get_tatrteaucitron_privacy_policy_url();
-		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_policy_url . '"});';
-		try {
+        $hashtag = get_option("wp_tarteaucitron_hashtag");
+        $icon_position = get_option("wp_tarteaucitron_icon_position");
+        $cookie_name = get_option("wp_tarteaucitron_cookie_name");
+        $remove_credit = get_option("wp_tarteaucitron_remove_credit");
+        $javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_policy_url . '", "hashtag": "' . $hashtag . '", "cookieName": "' . $cookie_name . '", "iconPosition": "' . $icon_position . '", "removeCredit": "' . $remove_credit . '"});';
+        try {
 			$javascript_file = fopen( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE, 'w+' );
 			fwrite( $javascript_file, $javascript);
 			fclose($javascript_file);
