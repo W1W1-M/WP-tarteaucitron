@@ -509,11 +509,8 @@ class WP_tarteaucitron_Options {
      */
     public function use_wp_remove_credit_callback(): void {
         $html = '<p>';
-        $html .= '<label for="wp_tarteaucitron_remove_credit_callback" hidden>wp_tarteaucitron_use_wp_privacy_policy_page</label>';
+        $html .= '<label for="wp_tarteaucitron_remove_credit_callback" hidden>wp_tarteaucitron_remove_credit_callback</label>';
         $html .= '<input type="checkbox" id="wp_tarteaucitron_remove_credit_callback" name="wp_tarteaucitron_remove_credit_callback"';
-        if( $this->get_option_use_wp_privacy_policy_page() ) {
-            $html .= 'value="on" checked';
-        }
         $html .= '/></p>';
         echo $html;
     }
