@@ -377,7 +377,7 @@ class WP_tarteaucitron_Options {
 	 * @return string
 	 */
 	public function sanitize_cookie_name_input( $input ): string {
-		$sanitized_input = $this->sanitize_preg_replace($input);
+		$sanitized_input = $this->wp_replace($input);
 		if($sanitized_input == ""){
 			return "tarteaucitron";
 		}
@@ -394,8 +394,21 @@ class WP_tarteaucitron_Options {
 	 * @return string
 	 */
 	public function sanitize_preg_replace( $input ): string {
+		return wp_replace($input);
+	}
+
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @param $input
+	 *
+	 * @return string
+	 */
+	public function wp_replace( $input ): string {
 		return preg_replace('/[^A-Za-z0-9\-]/', '', $input);
 	}
+
 
 	/**
 	 * @since 1.0.0
