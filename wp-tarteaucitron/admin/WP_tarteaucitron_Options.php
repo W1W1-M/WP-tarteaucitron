@@ -469,21 +469,25 @@ class WP_tarteaucitron_Options {
 				$html .= '<option value="BottomLeft">En bas à gauche</option>';
 				$html .= '<option value="TopRight">En haut à droite</option>';
 				$html .= '<option value="TopLeft">En haut à gauche</option>';
+				break;
 			case "BottomLeft":
 				$html .= '<option value="BottomLeft">En bas à gauche</option>';
 				$html .= '<option value="BottomRight">En bas à droite</option>';
 				$html .= '<option value="TopRight">En haut à droite</option>';
 				$html .= '<option value="TopLeft">En haut à gauche</option>';
+				break;
 			case "TopRight":
 				$html .= '<option value="TopRight">En haut à droite</option>';
 				$html .= '<option value="BottomRight">En bas à droite</option>';
 				$html .= '<option value="BottomLeft">En bas à gauche</option>';
 				$html .= '<option value="TopLeft">En haut à gauche</option>';
+				break;
 			case "TopLeft":
 				$html .= '<option value="TopLeft">En haut à gauche</option>';
 				$html .= '<option value="BottomRight">En bas à droite</option>';
 				$html .= '<option value="BottomLeft">En bas à gauche</option>';
 				$html .= '<option value="TopRight">En haut à droite</option>';
+				break;
 		}
 		$html .= '</select>';
 		$html .= '</p>';
