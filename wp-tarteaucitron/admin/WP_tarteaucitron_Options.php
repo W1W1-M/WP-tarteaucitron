@@ -479,7 +479,7 @@ class WP_tarteaucitron_Options {
         );
         add_settings_field(
             'wp_tarteaucitron_remove_credit_field',
-            __( 'Personnaliser le remove_credit', 'wp-tarteaucitron' ), array( &$this,
+            __( 'Afficher les crédits', 'wp-tarteaucitron' ), array( &$this,
             'use_wp_remove_credit_callback'
         ),
             'wp-tarteaucitron',
