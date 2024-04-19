@@ -326,7 +326,7 @@ class WP_tarteaucitron_Options {
 	 * @return string
 	 */
 	public function sanitize_hashtag_input( $input ): string {
-		$sanitized_input = $this->sanitize_preg_replace($input);
+		$sanitized_input = $this->wp_replace($input);
 		if( $sanitized_input == "" ){
 			return "#tarteaucitron";
 		}else {
@@ -394,12 +394,12 @@ class WP_tarteaucitron_Options {
 	 * @return string
 	 */
 	public function sanitize_preg_replace( $input ): string {
-		return wp_replace($input);
+		return $this->wp_replace($input);
 	}
 
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @param $input
 	 *
