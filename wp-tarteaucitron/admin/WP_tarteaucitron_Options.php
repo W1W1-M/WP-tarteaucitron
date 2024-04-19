@@ -294,7 +294,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @return void
 	 */
@@ -319,7 +319,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @param $input
 	 *
@@ -335,7 +335,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @return void
 	 */
@@ -349,6 +349,11 @@ class WP_tarteaucitron_Options {
 		echo $html;
 	}
 
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
 	protected function setup_cookie_name_page_setting(): void {
 		$form_id_setting_args = array(
 			'sanitize_callback' => array( &$this, 'sanitize_cookie_name_input' ),
@@ -370,7 +375,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @param $input
 	 *
@@ -387,7 +392,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @param $input
 	 *
@@ -411,7 +416,7 @@ class WP_tarteaucitron_Options {
 
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @return void
 	 */
@@ -441,7 +446,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_icon_position_field',
-			__( 'Personnaliser le icon_position', 'wp-tarteaucitron' ), array( &$this,
+			__( 'Changer la position de l\'icône', 'wp-tarteaucitron' ), array( &$this,
 			'use_wp_icon_position_callback'
 		),
 			'wp-tarteaucitron',
@@ -450,24 +455,43 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @return void
 	 */
 	public function use_wp_icon_position_callback(): void {
+		$option = get_option('wp_tarteaucitron_icon_position');
 		$html = '<p>';
 		$html .= '<select id="wp_tarteaucitron_icon_position" name="wp_tarteaucitron_icon_position" />';
-		$html .= '<option value="BottomRight">En bas à droite</option>';
-		$html .= '<option value="BottomLeft">En bas à gauche</option>';
-		$html .= '<option value="TopRight">En haut à droite</option>';
-		$html .= '<option value="TopLeft">En haut à gauche</option>';
+		switch($option){
+			case "BottomRight":
+				$html .= '<option value="BottomRight">En bas à droite</option>';
+				$html .= '<option value="BottomLeft">En bas à gauche</option>';
+				$html .= '<option value="TopRight">En haut à droite</option>';
+				$html .= '<option value="TopLeft">En haut à gauche</option>';
+			case "BottomLeft":
+				$html .= '<option value="BottomLeft">En bas à gauche</option>';
+				$html .= '<option value="BottomRight">En bas à droite</option>';
+				$html .= '<option value="TopRight">En haut à droite</option>';
+				$html .= '<option value="TopLeft">En haut à gauche</option>';
+			case "TopRight":
+				$html .= '<option value="TopRight">En haut à droite</option>';
+				$html .= '<option value="BottomRight">En bas à droite</option>';
+				$html .= '<option value="BottomLeft">En bas à gauche</option>';
+				$html .= '<option value="TopLeft">En haut à gauche</option>';
+			case "TopLeft":
+				$html .= '<option value="TopLeft">En haut à gauche</option>';
+				$html .= '<option value="BottomRight">En bas à droite</option>';
+				$html .= '<option value="BottomLeft">En bas à gauche</option>';
+				$html .= '<option value="TopRight">En haut à droite</option>';
+		}
 		$html .= '</select>';
 		$html .= '</p>';
 		echo $html;
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @return void
 	 */
@@ -483,7 +507,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_remove_credit_field',
-			__( 'Afficher les crédits', 'wp-tarteaucitron' ), array( &$this,
+			__( 'Cacher les crédits', 'wp-tarteaucitron' ), array( &$this,
 			'use_wp_remove_credit_callback'
 		),
 			'wp-tarteaucitron',
@@ -492,7 +516,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @param $input
 	 *
@@ -507,7 +531,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 *
 	 * @return void
 	 */
@@ -520,8 +544,6 @@ class WP_tarteaucitron_Options {
 		$html .= '/></p>';
 		echo $html;
 	}
-
-
 
 }
 
