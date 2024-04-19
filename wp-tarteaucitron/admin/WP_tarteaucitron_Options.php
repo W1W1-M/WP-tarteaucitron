@@ -463,32 +463,10 @@ class WP_tarteaucitron_Options {
 		$option = get_option('wp_tarteaucitron_icon_position');
 		$html = '<p>';
 		$html .= '<select id="wp_tarteaucitron_icon_position" name="wp_tarteaucitron_icon_position" />';
-		switch($option){
-			case "BottomRight":
-				$html .= '<option value="BottomRight">En bas à droite</option>';
-				$html .= '<option value="BottomLeft">En bas à gauche</option>';
-				$html .= '<option value="TopRight">En haut à droite</option>';
-				$html .= '<option value="TopLeft">En haut à gauche</option>';
-				break;
-			case "BottomLeft":
-				$html .= '<option value="BottomLeft">En bas à gauche</option>';
-				$html .= '<option value="BottomRight">En bas à droite</option>';
-				$html .= '<option value="TopRight">En haut à droite</option>';
-				$html .= '<option value="TopLeft">En haut à gauche</option>';
-				break;
-			case "TopRight":
-				$html .= '<option value="TopRight">En haut à droite</option>';
-				$html .= '<option value="BottomRight">En bas à droite</option>';
-				$html .= '<option value="BottomLeft">En bas à gauche</option>';
-				$html .= '<option value="TopLeft">En haut à gauche</option>';
-				break;
-			case "TopLeft":
-				$html .= '<option value="TopLeft">En haut à gauche</option>';
-				$html .= '<option value="BottomRight">En bas à droite</option>';
-				$html .= '<option value="BottomLeft">En bas à gauche</option>';
-				$html .= '<option value="TopRight">En haut à droite</option>';
-				break;
-		}
+				$html .= '<option value="BottomRight"' . (($option == "BottomRight") ? 'selected ' : '') . '>En bas à droite</option>';
+				$html .= '<option value="BottomLeft"' . (($option == "BottomLeft") ? 'selected ' : '') . '>En bas à gauche</option>';
+				$html .= '<option value="TopRight"' . (($option == "TopRight") ? 'selected ' : '') . '>En haut à droite</option>';
+				$html .= '<option value="TopLeft"' . (($option == "TopLeft") ? 'selected ' : '') . '>En haut à gauche</option>';
 		$html .= '</select>';
 		$html .= '</p>';
 		echo $html;
@@ -526,11 +504,11 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return string
 	 */
-	public function sanitize_remove_credit_input( $input ): string {
+	public function sanitize_remove_credit_input( $input ): bool {
 		if( $input == "on" ) {
-			return "true";
+			return true;
 		} else {
-			return "false";
+			return false;
 		}
 	}
 
