@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-tarteaucitron\n"
-"POT-Creation-Date: 2024-04-22 11:46+0200\n"
-"PO-Revision-Date: 2024-04-22 12:02+0200\n"
+"POT-Creation-Date: 2024-04-22 12:16+0200\n"
+"PO-Revision-Date: 2024-04-22 12:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -36,24 +36,40 @@ msgid "Custom privacy policy URL"
 msgstr "URL politique de confidentialité personnalisée"
 
 #: admin/WP_tarteaucitron_Options.php:314
-msgid "Personnaliser le hashtag"
-msgstr ""
+msgid "Customize the hashtag"
+msgstr "Personnaliser le hashtag"
 
 #: admin/WP_tarteaucitron_Options.php:370
-msgid "Personnaliser le nom des cookies"
-msgstr ""
+msgid "Customize cookie names"
+msgstr "Personnaliser le nom des cookies"
 
 #: admin/WP_tarteaucitron_Options.php:450
-msgid "Changer la position de l'icône"
-msgstr ""
+msgid "Change icon position"
+msgstr "Changer la position de l'icône"
+
+#: admin/WP_tarteaucitron_Options.php:467
+msgid "At the bottom right"
+msgstr "En bas à droite"
+
+#: admin/WP_tarteaucitron_Options.php:468
+msgid "At the bottom left"
+msgstr "En bas à gauche"
+
+#: admin/WP_tarteaucitron_Options.php:469
+msgid "At the top right"
+msgstr "En haut à droite"
+
+#: admin/WP_tarteaucitron_Options.php:470
+msgid "At the top left"
+msgstr "En haut à gauche"
 
 #: admin/WP_tarteaucitron_Options.php:493
-msgid "Cacher les crédits"
-msgstr ""
+msgid "Hide credits"
+msgstr "Cacher les crédits"
 
 #: admin/WP_tarteaucitron_Options.php:548
-msgid "Supprimer les options à la désinstallation"
-msgstr ""
+msgid "Remove options on uninstallation"
+msgstr "Supprimer les options à la désinstallation"
 
 #~ msgid "Use WordPress privacy policy page"
 #~ msgstr ""

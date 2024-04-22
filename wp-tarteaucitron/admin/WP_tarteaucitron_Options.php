@@ -464,10 +464,10 @@ class WP_tarteaucitron_Options {
 		$option = get_option('wp_tarteaucitron_icon_position');
 		$html = '<p>';
 		$html .= '<select id="wp_tarteaucitron_icon_position" name="wp_tarteaucitron_icon_position" />';
-				$html .= '<option value="BottomRight"' . (($option == "BottomRight") ? 'selected ' : '') . '>En bas à droite</option>';
-				$html .= '<option value="BottomLeft"' . (($option == "BottomLeft") ? 'selected ' : '') . '>En bas à gauche</option>';
-				$html .= '<option value="TopRight"' . (($option == "TopRight") ? 'selected ' : '') . '>En haut à droite</option>';
-				$html .= '<option value="TopLeft"' . (($option == "TopLeft") ? 'selected ' : '') . '>En haut à gauche</option>';
+				$html .= '<option value="BottomRight"' . (($option == "BottomRight") ? 'selected ' : '') . '> '. __( 'At the bottom right', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="BottomLeft"' . (($option == "BottomLeft") ? 'selected ' : '') . '> '. __( 'At the bottom left', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="TopRight"' . (($option == "TopRight") ? 'selected ' : '') . '> '. __( 'At the top right', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="TopLeft"' . (($option == "TopLeft") ? 'selected ' : '') . '> '. __( 'At the top left', 'wp-tarteaucitron' ) . '</option>';
 		$html .= '</select>';
 		$html .= '</p>';
 		echo $html;
