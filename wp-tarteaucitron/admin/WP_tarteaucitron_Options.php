@@ -311,7 +311,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_hashtag_field',
-			__( 'Personnaliser le hashtag', 'wp-tarteaucitron' ), array( &$this,
+			__( 'Customize the hashtag', 'wp-tarteaucitron' ), array( &$this,
 			'use_wp_hashtag_callback'
 		),
 			'wp-tarteaucitron',
@@ -367,7 +367,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_cookie_name_field',
-			__( 'Personnaliser le nom des cookies', 'wp-tarteaucitron' ), array( &$this,
+			__( 'Customize cookie names', 'wp-tarteaucitron' ), array( &$this,
 			'use_wp_cookie_name_callback'
 		),
 			'wp-tarteaucitron',
@@ -447,7 +447,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_icon_position_field',
-			__( 'Changer la position de l\'icône', 'wp-tarteaucitron' ), array( &$this,
+			__( 'Change icon position', 'wp-tarteaucitron' ), array( &$this,
 			'use_wp_icon_position_callback'
 		),
 			'wp-tarteaucitron',
@@ -490,7 +490,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_remove_credit_field',
-			__( 'Cacher les crédits', 'wp-tarteaucitron' ), array( &$this,
+			__( 'Hide credits', 'wp-tarteaucitron' ), array( &$this,
 			'use_wp_remove_credit_callback'
 		),
 			'wp-tarteaucitron',
@@ -545,7 +545,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_remove_options_field',
-			__( 'Supprimer les options à la désinstallation', 'wp-tarteaucitron' ), array( &$this,
+			__( 'Remove options on uninstallation', 'wp-tarteaucitron' ), array( &$this,
 			'use_wp_remove_options_callback'
 		),
 			'wp-tarteaucitron',
