@@ -132,6 +132,8 @@ class WP_tarteaucitron_Setup {
 			add_action( 'update_option_wp_tarteaucitron_icon_position', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 			add_action( 'add_option_wp_tarteaucitron_remove_credit', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 			add_action( 'update_option_wp_tarteaucitron_remove_credit', array( $this, 'setup_tarteaucitron_script_js_file' ) );
+			add_action( 'add_option_wp_tarteaucitron_remove_options', array( $this, 'setup_tarteaucitron_script_js_file' ) );
+			add_action( 'update_option_wp_tarteaucitron_remove_options', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 
 		} catch ( Exception $exception ) {
 			error_log( 'WP-tarteaucitron actions error' );
