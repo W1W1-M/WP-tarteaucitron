@@ -101,6 +101,7 @@ class WP_tarteaucitron_Options {
 		$this->setup_cookie_name_page_setting();
 		$this->setup_icon_position_page_setting();
 		$this->setup_remove_credit_page_setting();
+		$this->setup_remove_options_page_setting();
 	}
 
 	/**
