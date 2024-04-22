@@ -527,6 +527,61 @@ class WP_tarteaucitron_Options {
 		echo $html;
 	}
 
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	protected function setup_remove_options_page_setting(): void {
+		$form_id_setting_args = array(
+			'sanitize_callback' => array( &$this, 'sanitize_remove_options_input' ),
+			'default' => ''
+		);
+		register_setting(
+			'wp_tarteaucitron_options',
+			'wp_tarteaucitron_remove_options',
+			$form_id_setting_args
+		);
+		add_settings_field(
+			'wp_tarteaucitron_remove_options_field',
+			__( 'Supprimer les options à la désinstallation', 'wp-tarteaucitron' ), array( &$this,
+			'use_wp_remove_options_callback'
+		),
+			'wp-tarteaucitron',
+			'wp_tarteaucitron_settings_section'
+		);
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @param $input
+	 *
+	 * @return string
+	 */
+	public function sanitize_remove_options_input( $input ): bool {
+		if( $input == "on" ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	public function use_wp_remove_options_callback(): void {
+		$html = '<p>';
+		$html .= '<input type="checkbox" id="wp_tarteaucitron_remove_options" name="wp_tarteaucitron_remove_options"';
+		if(get_option( 'wp_tarteaucitron_remove_options' )){
+			$html .= 'value="on" checked';
+		}
+		$html .= '/></p>';
+		echo $html;
+	}
+
 }
 
 ?>
