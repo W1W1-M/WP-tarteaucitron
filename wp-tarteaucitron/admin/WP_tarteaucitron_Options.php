@@ -97,11 +97,11 @@ class WP_tarteaucitron_Options {
 		$this->setup_settings_section();
 		$this->setup_use_wp_privacy_policy_page_setting();
 		$this->setup_privacy_policy_url_setting();
-		$this->setup_hashtag_page_setting();
-		$this->setup_cookie_name_page_setting();
-		$this->setup_icon_position_page_setting();
-		$this->setup_remove_credit_page_setting();
-		$this->setup_remove_options_page_setting();
+		$this->setup_hashtag_setting();
+		$this->setup_cookie_name_setting();
+		$this->setup_icon_position_setting();
+		$this->setup_remove_credit_setting();
+		$this->setup_remove_options_setting();
 	}
 
 	/**
@@ -299,7 +299,7 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return void
 	 */
-	protected function setup_hashtag_page_setting(): void {
+	protected function setup_hashtag_setting(): void {
 		$form_id_setting_args = array(
 			'sanitize_callback' => array( &$this, 'sanitize_hashtag_input' ),
 			'default' => ''
@@ -328,11 +328,7 @@ class WP_tarteaucitron_Options {
 	 */
 	public function sanitize_hashtag_input( $input ): string {
 		$sanitized_input = $this->wp_replace($input);
-		if( $sanitized_input == "" ){
-			return "#tarteaucitron";
-		}else {
-			return "#" . $sanitized_input;
-		}
+		return ( $sanitized_input == "" ) ? "#tarteaucitron" : "#" . $sanitized_input;
 	}
 
 	/**
@@ -355,7 +351,7 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return void
 	 */
-	protected function setup_cookie_name_page_setting(): void {
+	protected function setup_cookie_name_setting(): void {
 		$form_id_setting_args = array(
 			'sanitize_callback' => array( &$this, 'sanitize_cookie_name_input' ),
 			'default' => ''
@@ -367,7 +363,7 @@ class WP_tarteaucitron_Options {
 		);
 		add_settings_field(
 			'wp_tarteaucitron_cookie_name_field',
-			__( 'Customize cookie names', 'wp-tarteaucitron' ), array( &$this,
+			__( 'Customize cookie name', 'wp-tarteaucitron' ), array( &$this,
 			'use_wp_cookie_name_callback'
 		),
 			'wp-tarteaucitron',
@@ -384,23 +380,7 @@ class WP_tarteaucitron_Options {
 	 */
 	public function sanitize_cookie_name_input( $input ): string {
 		$sanitized_input = $this->wp_replace($input);
-		if($sanitized_input == ""){
-			return "tarteaucitron";
-		}
-		else{
-			return $sanitized_input;
-		}
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @param $input
-	 *
-	 * @return string
-	 */
-	public function sanitize_preg_replace( $input ): string {
-		return $this->wp_replace($input);
+		return ($sanitized_input == "") ? "tarteaucitron" : $sanitized_input;
 	}
 
 
@@ -436,7 +416,7 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return void
 	 */
-	protected function setup_icon_position_page_setting(): void {
+	protected function setup_icon_position_setting(): void {
 		$form_id_setting_args = array(
 			'default' => ''
 		);
@@ -478,9 +458,9 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return void
 	 */
-	protected function setup_remove_credit_page_setting(): void {
+	protected function setup_remove_credit_setting(): void {
 		$form_id_setting_args = array(
-			'sanitize_callback' => array( &$this, 'sanitize_remove_credit_input' ),
+			'sanitize_callback' => array( &$this, 'sanitize_checkbox_input' ),
 			'default' => ''
 		);
 		register_setting(
@@ -505,12 +485,8 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return string
 	 */
-	public function sanitize_remove_credit_input( $input ): bool {
-		if( $input == "on" ) {
-			return true;
-		} else {
-			return false;
-		}
+	public function sanitize_checkbox_input( $input ): bool {
+		return $input == "on";
 	}
 
 	/**
@@ -533,9 +509,9 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @return void
 	 */
-	protected function setup_remove_options_page_setting(): void {
+	protected function setup_remove_options_setting(): void {
 		$form_id_setting_args = array(
-			'sanitize_callback' => array( &$this, 'sanitize_remove_options_input' ),
+			'sanitize_callback' => array( &$this, 'sanitize_checkbox_input' ),
 			'default' => ''
 		);
 		register_setting(
@@ -551,21 +527,6 @@ class WP_tarteaucitron_Options {
 			'wp-tarteaucitron',
 			'wp_tarteaucitron_settings_section'
 		);
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @param $input
-	 *
-	 * @return string
-	 */
-	public function sanitize_remove_options_input( $input ): bool {
-		if( $input == "on" ) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**
