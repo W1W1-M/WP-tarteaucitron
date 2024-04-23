@@ -25,12 +25,10 @@ function wp_tarteaucitron_uninstall(): void {
 		wordpress_plugin_uninstall_called();
 		if(get_option('wp_tarteaucitron_remove_options')){
 			delete_options();
-			$exception = new Exception( 'All options have been removed' );
-			throw $exception;
+			trigger_error( 'The options have been removed' );
 		}
 		else{
-			$exception = new Exception( 'Options have not been removed' );
-			throw $exception;
+			trigger_error( 'The options have been preserved' );
 		}
 	} catch( Exception $exception ) {
 		exit( $exception->getMessage() );
