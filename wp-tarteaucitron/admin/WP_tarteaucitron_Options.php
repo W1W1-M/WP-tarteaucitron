@@ -97,6 +97,11 @@ class WP_tarteaucitron_Options {
 		$this->setup_settings_section();
 		$this->setup_use_wp_privacy_policy_page_setting();
 		$this->setup_privacy_policy_url_setting();
+		$this->setup_hashtag_setting();
+		$this->setup_cookie_name_setting();
+		$this->setup_icon_position_setting();
+		$this->setup_remove_credit_setting();
+		$this->setup_remove_options_setting();
 	}
 
 	/**
@@ -232,7 +237,7 @@ class WP_tarteaucitron_Options {
 	public function privacy_policy_url_field_callback(): void {
 		$html = '<p>';
 		$html .= '<label for="wp_tarteaucitron_privacy_policy_url" hidden>wp_tarteaucitron_privacy_policy_url</label>';
-		$html .= '<p><input type="url" id="wp_tarteaucitron_privacy_policy_url" name="wp_tarteaucitron_privacy_policy_url"';
+		$html .= '<p><input size="50" type="url" id="wp_tarteaucitron_privacy_policy_url" name="wp_tarteaucitron_privacy_policy_url"';
 		$html .= ' value="' . esc_attr( $this->get_option_wp_tarteaucitron_privacy_policy_url() ) . '"';
 		$html .= ' placeholder=" ' . site_url() . ' " pattern="https?://.+"';
 		if( $this->get_option_use_wp_privacy_policy_page() ) {
@@ -287,6 +292,256 @@ class WP_tarteaucitron_Options {
 				return $tarteaucitron_privacy_policy_url;
 			}
 		}
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	protected function setup_hashtag_setting(): void {
+		$form_id_setting_args = array(
+			'sanitize_callback' => array( &$this, 'sanitize_hashtag_input' ),
+			'default' => ''
+		);
+		register_setting(
+			'wp_tarteaucitron_options',
+			'wp_tarteaucitron_hashtag',
+			$form_id_setting_args
+		);
+		add_settings_field(
+			'wp_tarteaucitron_hashtag_field',
+			__( 'Customize the hashtag', 'wp-tarteaucitron' ), array( &$this,
+			'use_wp_hashtag_callback'
+		),
+			'wp-tarteaucitron',
+			'wp_tarteaucitron_settings_section'
+		);
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @param $input
+	 *
+	 * @return string
+	 */
+	public function sanitize_hashtag_input( $input ): string {
+		$sanitized_input = $this->wp_replace($input);
+		return ( $sanitized_input == "" ) ? "#tarteaucitron" : "#" . $sanitized_input;
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	public function use_wp_hashtag_callback(): void {
+		get_option("wp_tarteaucitron_hashtag");
+		$html = '<p>';
+		$html .= '<input type="text" id="wp_tarteaucitron_hashtag" name="wp_tarteaucitron_hashtag" value="';
+		$html .= get_option("wp_tarteaucitron_hashtag");
+		$html .= '"';
+		$html .= '/></p>';
+		echo $html;
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	protected function setup_cookie_name_setting(): void {
+		$form_id_setting_args = array(
+			'sanitize_callback' => array( &$this, 'sanitize_cookie_name_input' ),
+			'default' => ''
+		);
+		register_setting(
+			'wp_tarteaucitron_options',
+			'wp_tarteaucitron_cookie_name',
+			$form_id_setting_args
+		);
+		add_settings_field(
+			'wp_tarteaucitron_cookie_name_field',
+			__( 'Customize cookie name', 'wp-tarteaucitron' ), array( &$this,
+			'use_wp_cookie_name_callback'
+		),
+			'wp-tarteaucitron',
+			'wp_tarteaucitron_settings_section'
+		);
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @param $input
+	 *
+	 * @return string
+	 */
+	public function sanitize_cookie_name_input( $input ): string {
+		$sanitized_input = $this->wp_replace($input);
+		return ($sanitized_input == "") ? "tarteaucitron" : $sanitized_input;
+	}
+
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @param $input
+	 *
+	 * @return string
+	 */
+	public function wp_replace( $input ): string {
+		return preg_replace('/[^A-Za-z0-9\-]/', '', $input);
+	}
+
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	public function use_wp_cookie_name_callback(): void {
+		get_option("wp_tarteaucitron_cookie_name");
+		$html = '<p>';
+		$html .= '<input type="text" id="wp_tarteaucitron_cookie_name" name="wp_tarteaucitron_cookie_name" value="';
+		$html .= get_option("wp_tarteaucitron_cookie_name");
+		$html .= '"';
+		$html .= '/></p>';
+		echo $html;
+	}
+
+	/**
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	protected function setup_icon_position_setting(): void {
+		$form_id_setting_args = array(
+			'default' => ''
+		);
+		register_setting(
+			'wp_tarteaucitron_options',
+			'wp_tarteaucitron_icon_position',
+			$form_id_setting_args
+		);
+		add_settings_field(
+			'wp_tarteaucitron_icon_position_field',
+			__( 'Change icon position', 'wp-tarteaucitron' ), array( &$this,
+			'use_wp_icon_position_callback'
+		),
+			'wp-tarteaucitron',
+			'wp_tarteaucitron_settings_section'
+		);
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	public function use_wp_icon_position_callback(): void {
+		$option = get_option('wp_tarteaucitron_icon_position');
+		$html = '<p>';
+		$html .= '<select id="wp_tarteaucitron_icon_position" name="wp_tarteaucitron_icon_position" />';
+				$html .= '<option value="BottomRight"' . (($option == "BottomRight") ? 'selected ' : '') . '> '. __( 'At the bottom right', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="BottomLeft"' . (($option == "BottomLeft") ? 'selected ' : '') . '> '. __( 'At the bottom left', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="TopRight"' . (($option == "TopRight") ? 'selected ' : '') . '> '. __( 'At the top right', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="TopLeft"' . (($option == "TopLeft") ? 'selected ' : '') . '> '. __( 'At the top left', 'wp-tarteaucitron' ) . '</option>';
+		$html .= '</select>';
+		$html .= '</p>';
+		echo $html;
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	protected function setup_remove_credit_setting(): void {
+		$form_id_setting_args = array(
+			'sanitize_callback' => array( &$this, 'sanitize_checkbox_input' ),
+			'default' => ''
+		);
+		register_setting(
+			'wp_tarteaucitron_options',
+			'wp_tarteaucitron_remove_credit',
+			$form_id_setting_args
+		);
+		add_settings_field(
+			'wp_tarteaucitron_remove_credit_field',
+			__( 'Hide credits', 'wp-tarteaucitron' ), array( &$this,
+			'use_wp_remove_credit_callback'
+		),
+			'wp-tarteaucitron',
+			'wp_tarteaucitron_settings_section'
+		);
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @param $input
+	 *
+	 * @return string
+	 */
+	public function sanitize_checkbox_input( $input ): bool {
+		return $input == "on";
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	public function use_wp_remove_credit_callback(): void {
+		$html = '<p>';
+		$html .= '<input type="checkbox" id="wp_tarteaucitron_remove_credit" name="wp_tarteaucitron_remove_credit"';
+		if(get_option( 'wp_tarteaucitron_remove_credit' )){
+			$html .= 'value="on" checked';
+		}
+		$html .= '/></p>';
+		echo $html;
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	protected function setup_remove_options_setting(): void {
+		$form_id_setting_args = array(
+			'sanitize_callback' => array( &$this, 'sanitize_checkbox_input' ),
+			'default' => ''
+		);
+		register_setting(
+			'wp_tarteaucitron_options',
+			'wp_tarteaucitron_remove_options',
+			$form_id_setting_args
+		);
+		add_settings_field(
+			'wp_tarteaucitron_remove_options_field',
+			__( 'Remove options on uninstallation', 'wp-tarteaucitron' ), array( &$this,
+			'use_wp_remove_options_callback'
+		),
+			'wp-tarteaucitron',
+			'wp_tarteaucitron_settings_section'
+		);
+	}
+
+	/**
+	 * @since 1.7.0
+	 *
+	 * @return void
+	 */
+	public function use_wp_remove_options_callback(): void {
+		$html = '<p>';
+		$html .= '<input type="checkbox" id="wp_tarteaucitron_remove_options" name="wp_tarteaucitron_remove_options"';
+		if(get_option( 'wp_tarteaucitron_remove_options' )){
+			$html .= 'value="on" checked';
+		}
+		$html .= '/></p>';
+		echo $html;
 	}
 
 }
