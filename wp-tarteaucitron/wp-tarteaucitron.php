@@ -27,8 +27,8 @@ declare( strict_types=1 );
  * Plugin URI:           https://git.manche.io/wordpress/wptarteaucitron
  * Description:          Plugin to manage cookies with tarteaucitron.js
  * Version:              1.8.0
- * Requires at least:    5.9.5
- * Requires PHP:         8.0.28
+ * Requires at least:    6.3.4
+ * Requires PHP:         8.1.29
  * Author:               William Mead & Clément Schneider @ Manche Numérique
  * Author URI:           https://www.manchenumerique.fr
  * License:              GNU GPLv3

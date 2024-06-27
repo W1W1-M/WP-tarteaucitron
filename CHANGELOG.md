@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated tarteaucitron.js to v1.19.0
+- Fixed show credits
+- Updated minimum PHP & WordPress versions
 - Cleaned code
 - Updated version
 
