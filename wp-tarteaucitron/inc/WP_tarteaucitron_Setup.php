@@ -318,7 +318,7 @@ class WP_tarteaucitron_Setup {
 		$hashtag = get_option( 'wp_tarteaucitron_hashtag' ) ?: '#tarteaucitron';
 		$icon_position = get_option( 'wp_tarteaucitron_icon_position' ) ?: 'BottomRight';
 		$cookie_name = get_option( 'wp_tarteaucitron_cookie_name' ) ?: 'tarteaucitron';
-		$remove_credit = get_option( 'wp_tarteaucitron_remove_credit' ) ?: 'false';
+		$remove_credit = get_option( 'wp_tarteaucitron_remove_credit' ) ? 'true' : 'false';
 		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_policy_url . '", "hashtag": "' . $hashtag . '", "cookieName": "' . $cookie_name . '", "iconPosition": "' . $icon_position . '", "removeCredit": ' . $remove_credit . '});';
 		try {
 			$javascript_file = fopen( trailingslashit( dirname(WP_TARTEAUCITRON_PLUGIN_FILE_PATH) ) . WP_TARTEAUCITRON_SCRIPT_JS_FILE, 'w+' );
