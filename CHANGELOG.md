@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2024-06-27
+
+### Changed
+
+- Updated tarteaucitron.js to v1.19.0
+- Fixed show credits
+- Updated minimum PHP & WordPress versions
+- Cleaned code
+- Updated version
+
 ## [1.7.0] - 2024-04-26
 
 ### Added
@@ -12,8 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Choose cookie name
 - Choose hashtag name
 - Choose icon position
-- Choose if you want to show credit of the creator of TarteAuCitron
-- Choose if you want to delete options when you uninstall the plugin
+- Choose show credits
+- Choose delete options on plugin uninstall
 
 ### Changed
 
