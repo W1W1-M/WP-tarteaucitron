@@ -95,6 +95,7 @@ class WP_tarteaucitron_Options {
 	 */
 	public function setup_settings(): void {
 		$this->setup_settings_section();
+		$this->setup_tracking_code_setting();
 		$this->setup_use_wp_privacy_policy_page_setting();
 		$this->setup_privacy_policy_url_setting();
 		$this->setup_hashtag_setting();
@@ -124,6 +125,65 @@ class WP_tarteaucitron_Options {
 	 */
 	public function settings_section_callback(): void {
 		echo '<!-- Settings section -->';
+	}
+
+	/**
+	 * @since 1.8.0
+	 *
+	 * @return void
+	 */
+	protected function setup_tracking_code_setting(): void {
+		$form_id_setting_args = array(
+			'sanitize_callback' => array( &$this, 'sanitize_tracking_code_setting_input' ),
+			'default' => 'false'
+		);
+		register_setting(
+			'wp_tarteaucitron_options',
+			'wp_tarteaucitron_tracking_code',
+			$form_id_setting_args
+		);
+		add_settings_field(
+			'wp_tarteaucitron_tracking_code_field',
+			__( 'Tracking code', 'wp-tarteaucitron' ), array( &$this,
+			'tracking_code_field_callback'
+		),
+			'wp-tarteaucitron',
+			'wp_tarteaucitron_settings_section'
+		);
+	}
+
+	/**
+	 * @since 1.8.0
+	 *
+	 * @param $input
+	 *
+	 * @return bool
+	 */
+	public function sanitize_tracking_code_setting_input( $input ): bool {
+		return $input;
+	}
+
+	/**
+	 * @since 1.8.0
+	 *
+	 * @return void
+	 */
+	public function tracking_code_field_callback(): void {
+		$html = '<p>';
+		$html .= '<label for="wp_tarteaucitron_tracking_code" hidden>wp_tarteaucitron_tracking_code</label>';
+		$html .= '<textarea id="wp_tarteaucitron_tracking_code" name="wp_tarteaucitron_tracking_code" rows="10" cols="50">';
+		$html .= esc_attr( $this->get_option_tracking_code() );
+		$html .= '</textarea></p>';
+		echo $html;
+	}
+
+	/**
+	 * @since 1.8.0
+	 *
+	 * @return mixed
+	 */
+	public function get_option_tracking_code(): mixed {
+		return get_option( 'wp_tarteaucitron_tracking_code' );
 	}
 
 	/**
@@ -328,7 +388,7 @@ class WP_tarteaucitron_Options {
 	 */
 	public function sanitize_hashtag_input( $input ): string {
 		$sanitized_input = $this->wp_replace($input);
-		return ( $sanitized_input == "" ) ? "#tarteaucitron" : "#" . $sanitized_input;
+		return ( $sanitized_input == '' ) ? '#tarteaucitron' : '#' . $sanitized_input;
 	}
 
 	/**
@@ -337,10 +397,10 @@ class WP_tarteaucitron_Options {
 	 * @return void
 	 */
 	public function use_wp_hashtag_callback(): void {
-		get_option("wp_tarteaucitron_hashtag");
+		get_option('wp_tarteaucitron_hashtag');
 		$html = '<p>';
 		$html .= '<input type="text" id="wp_tarteaucitron_hashtag" name="wp_tarteaucitron_hashtag" value="';
-		$html .= get_option("wp_tarteaucitron_hashtag");
+		$html .= get_option('wp_tarteaucitron_hashtag');
 		$html .= '"';
 		$html .= '/></p>';
 		echo $html;
@@ -380,7 +440,7 @@ class WP_tarteaucitron_Options {
 	 */
 	public function sanitize_cookie_name_input( $input ): string {
 		$sanitized_input = $this->wp_replace($input);
-		return ($sanitized_input == "") ? "tarteaucitron" : $sanitized_input;
+		return ($sanitized_input == '') ? 'tarteaucitron' : $sanitized_input;
 	}
 
 
@@ -402,10 +462,10 @@ class WP_tarteaucitron_Options {
 	 * @return void
 	 */
 	public function use_wp_cookie_name_callback(): void {
-		get_option("wp_tarteaucitron_cookie_name");
+		get_option( 'wp_tarteaucitron_cookie_name' );
 		$html = '<p>';
 		$html .= '<input type="text" id="wp_tarteaucitron_cookie_name" name="wp_tarteaucitron_cookie_name" value="';
-		$html .= get_option("wp_tarteaucitron_cookie_name");
+		$html .= get_option( 'wp_tarteaucitron_cookie_name' );
 		$html .= '"';
 		$html .= '/></p>';
 		echo $html;
@@ -444,10 +504,10 @@ class WP_tarteaucitron_Options {
 		$option = get_option('wp_tarteaucitron_icon_position');
 		$html = '<p>';
 		$html .= '<select id="wp_tarteaucitron_icon_position" name="wp_tarteaucitron_icon_position" />';
-				$html .= '<option value="BottomRight"' . (($option == "BottomRight") ? 'selected ' : '') . '> '. __( 'At the bottom right', 'wp-tarteaucitron' ) . '</option>';
-				$html .= '<option value="BottomLeft"' . (($option == "BottomLeft") ? 'selected ' : '') . '> '. __( 'At the bottom left', 'wp-tarteaucitron' ) . '</option>';
-				$html .= '<option value="TopRight"' . (($option == "TopRight") ? 'selected ' : '') . '> '. __( 'At the top right', 'wp-tarteaucitron' ) . '</option>';
-				$html .= '<option value="TopLeft"' . (($option == "TopLeft") ? 'selected ' : '') . '> '. __( 'At the top left', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="BottomRight"' . (($option == 'BottomRight') ? 'selected ' : '') . '> '. __( 'At the bottom right', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="BottomLeft"' . (($option == 'BottomLeft') ? 'selected ' : '') . '> '. __( 'At the bottom left', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="TopRight"' . (($option == 'TopRight') ? 'selected ' : '') . '> '. __( 'At the top right', 'wp-tarteaucitron' ) . '</option>';
+				$html .= '<option value="TopLeft"' . (($option == 'TopLeft') ? 'selected ' : '') . '> '. __( 'At the top left', 'wp-tarteaucitron' ) . '</option>';
 		$html .= '</select>';
 		$html .= '</p>';
 		echo $html;
@@ -483,10 +543,10 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @param $input
 	 *
-	 * @return string
+	 * @return bool
 	 */
 	public function sanitize_checkbox_input( $input ): bool {
-		return $input == "on";
+		return $input == 'on';
 	}
 
 	/**

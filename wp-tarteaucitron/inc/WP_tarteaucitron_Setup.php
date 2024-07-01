@@ -120,9 +120,11 @@ class WP_tarteaucitron_Setup {
 			add_action( 'plugins_loaded', array( $this->wp_tarteaucitron_options,'init' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this,'check_scripts_enqueued' ), 99, 0 );
+			add_action( 'add_option_wp_tarteaucitron_tracking_code', array( $this, '' ) );
+			add_action( 'update_option_wp_tarteaucitron_tracking_code', array( $this, '' ) );
 			add_action( 'add_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this, 'setup_tarteaucitron_script_js_file' ) );
-			add_action( 'add_option_wp_tarteaucitron_privacy_policy_url', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 			add_action( 'update_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this, 'setup_tarteaucitron_script_js_file' ) );
+			add_action( 'add_option_wp_tarteaucitron_privacy_policy_url', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 			add_action( 'update_option_wp_tarteaucitron_privacy_policy_url', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 			add_action( 'add_option_wp_tarteaucitron_hashtag', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 			add_action( 'update_option_wp_tarteaucitron_hashtag', array( $this, 'setup_tarteaucitron_script_js_file' ) );
@@ -132,8 +134,8 @@ class WP_tarteaucitron_Setup {
 			add_action( 'update_option_wp_tarteaucitron_icon_position', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 			add_action( 'add_option_wp_tarteaucitron_remove_credit', array( $this, 'setup_tarteaucitron_script_js_file' ) );
 			add_action( 'update_option_wp_tarteaucitron_remove_credit', array( $this, 'setup_tarteaucitron_script_js_file' ) );
-			add_action( 'add_option_wp_tarteaucitron_remove_options', array( $this, 'setup_tarteaucitron_script_js_file' ) );
-			add_action( 'update_option_wp_tarteaucitron_remove_options', array( $this, 'setup_tarteaucitron_script_js_file' ) );
+			add_action( 'add_option_wp_tarteaucitron_remove_options', array( $this, '' ) );
+			add_action( 'update_option_wp_tarteaucitron_remove_options', array( $this, '' ) );
 
 		} catch ( Exception $exception ) {
 			error_log( 'WP-tarteaucitron actions error' );
@@ -182,6 +184,7 @@ class WP_tarteaucitron_Setup {
 			$tarteaucitron_version = $this->tarteaucitron_script_version();
 			$this->enqueue_tarteaucitron_js( $tarteaucitron_version );
 			$this->enqueue_tarteaucitron_script_js();
+			$this->enqueue_tracking_code_script();
 		} catch ( Exception $exception ) {
 			error_log( $exception->getMessage() );
 		}
@@ -230,7 +233,7 @@ class WP_tarteaucitron_Setup {
 			error_log( $exception->getMessage() );
 			throw $exception;
 		} else {
-			wp_enqueue_script( 'tarteaucitron_js', plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ), array(), $tarteaucitron_version );
+			wp_enqueue_script( WP_TARTEAUCITRON_JS, plugins_url( WP_TARTEAUCITRON_PACKAGE_PATH . WP_TARTEAUCITRON_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ), array(), $tarteaucitron_version );
 		}
 	}
 
@@ -247,7 +250,7 @@ class WP_tarteaucitron_Setup {
 			trigger_error( $exception->getMessage() );
 			$this->setup_tarteaucitron_script_js_file();
 		}
-		wp_enqueue_script( 'tarteaucitron_script_js', plugins_url( WP_TARTEAUCITRON_SCRIPT_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) );
+		wp_enqueue_script( WP_TARTEAUCITRON_SCRIPT_JS, plugins_url( WP_TARTEAUCITRON_SCRIPT_JS_FILE, WP_TARTEAUCITRON_PLUGIN_FILE_PATH ) );
 	}
 
 	/**
@@ -296,7 +299,7 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	public function check_scripts_enqueued(): void {
-		$scripts = array( 'tarteaucitron_js', 'tarteaucitron_script_js');
+		$scripts = array( WP_TARTEAUCITRON_JS, WP_TARTEAUCITRON_SCRIPT_JS );
 		foreach( $scripts as $script ) {
 			if( wp_script_is( $script ) ) {
 				trigger_error( $script . ' is enqueued' );
@@ -306,6 +309,16 @@ class WP_tarteaucitron_Setup {
 				throw $exception;
 			}
 		}
+	}
+
+	/**
+	 * @since 1.8.0
+	 *
+	 * @return void
+	 */
+	public function enqueue_tracking_code_script(): void {
+		$tracking_code_script = $this->wp_tarteaucitron_options->get_option_tracking_code();
+		wp_add_inline_script( WP_TARTEAUCITRON_SCRIPT_JS, $tracking_code_script );
 	}
 
 	/**

@@ -42,6 +42,8 @@ const WP_TARTEAUCITRON_PACKAGE_PATH = 'lib/tarteaucitron.js/';
 const WP_TARTEAUCITRON_JS_FILE = 'tarteaucitron.js';
 const WP_TARTEAUCITRON_SCRIPT_JS_FILE = 'tarteaucitron-script.js';
 const WP_TATEAUCITRON_PACKAGE_JSON_FILE = 'package.json';
+const WP_TARTEAUCITRON_JS = 'tarteaucitron_js';
+const WP_TARTEAUCITRON_SCRIPT_JS = 'tarteaucitron_script_js';
 
 wp_tarteaucitron_setup();
 
