@@ -314,7 +314,7 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	public function enqueue_tracking_code_script(): void {
-		$tracking_code_script = esc_js( $this->wp_tarteaucitron_options->get_option_tracking_code() );
+		$tracking_code_script = $this->wp_tarteaucitron_options->get_option_tracking_code();
 		wp_add_inline_script( WP_TARTEAUCITRON_SCRIPT_JS, $tracking_code_script );
 	}
 
