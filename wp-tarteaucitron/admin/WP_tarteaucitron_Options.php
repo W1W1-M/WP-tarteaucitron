@@ -160,7 +160,7 @@ class WP_tarteaucitron_Options {
 	 * @return string
 	 */
 	public function sanitize_tracking_code_setting_input( $input ): string {
-		return $input;
+		return sanitize_textarea_field( $input );
 	}
 
 	/**
@@ -285,7 +285,7 @@ class WP_tarteaucitron_Options {
 		if( $input === NULL ) {
 			return '';
 		} else {
-			return $input;
+			return sanitize_text_field( $input );
 		}
 	}
 
@@ -452,7 +452,7 @@ class WP_tarteaucitron_Options {
 	 * @return string
 	 */
 	public function wp_replace( $input ): string {
-		return preg_replace('/[^A-Za-z0-9\-]/', '', $input);
+		return preg_replace('/[^A-Za-z0-9\-]/', '', sanitize_text_field( $input ) );
 	}
 
 
