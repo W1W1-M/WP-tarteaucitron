@@ -157,9 +157,9 @@ class WP_tarteaucitron_Options {
 	 *
 	 * @param $input
 	 *
-	 * @return bool
+	 * @return string
 	 */
-	public function sanitize_tracking_code_setting_input( $input ): bool {
+	public function sanitize_tracking_code_setting_input( $input ): string {
 		return $input;
 	}
 
@@ -171,7 +171,7 @@ class WP_tarteaucitron_Options {
 	public function tracking_code_field_callback(): void {
 		$html = '<p>';
 		$html .= '<label for="wp_tarteaucitron_tracking_code" hidden>wp_tarteaucitron_tracking_code</label>';
-		$html .= '<textarea id="wp_tarteaucitron_tracking_code" name="wp_tarteaucitron_tracking_code" rows="10" cols="50">';
+		$html .= '<textarea id="wp_tarteaucitron_tracking_code" name="wp_tarteaucitron_tracking_code" rows="10" cols="100">';
 		$html .= esc_attr( $this->get_option_tracking_code() );
 		$html .= '</textarea></p>';
 		echo $html;
