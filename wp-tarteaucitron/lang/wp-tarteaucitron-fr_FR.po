@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-tarteaucitron\n"
-"POT-Creation-Date: 2024-04-22 12:16+0200\n"
-"PO-Revision-Date: 2024-04-22 12:16+0200\n"
+"POT-Creation-Date: 2024-07-01 17:36+0200\n"
+"PO-Revision-Date: 2024-07-01 17:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -22,52 +22,56 @@ msgstr ""
 "Vous n'êtes pas autorisé a gérer ces paramètres. Merci de contacter votre "
 "administrateur WordPress."
 
-#: admin/WP_tarteaucitron_Options.php:115
-#: admin/WP_tarteaucitron_Options.php:267
+#: admin/WP_tarteaucitron_Options.php:116
+#: admin/WP_tarteaucitron_Options.php:327
 msgid "Settings"
 msgstr "Paramètres"
 
-#: admin/WP_tarteaucitron_Options.php:146
+#: admin/WP_tarteaucitron_Options.php:147
+msgid "Tracking code"
+msgstr "Code de suivi"
+
+#: admin/WP_tarteaucitron_Options.php:206
 msgid "Use privacy policy page defined in WordPress"
 msgstr "Utiliser la page de politique de confidentialité défini dans WordPress"
 
-#: admin/WP_tarteaucitron_Options.php:211
+#: admin/WP_tarteaucitron_Options.php:271
 msgid "Custom privacy policy URL"
 msgstr "URL politique de confidentialité personnalisée"
 
-#: admin/WP_tarteaucitron_Options.php:314
+#: admin/WP_tarteaucitron_Options.php:374
 msgid "Customize the hashtag"
 msgstr "Personnaliser le hashtag"
 
-#: admin/WP_tarteaucitron_Options.php:370
-msgid "Customize cookie names"
+#: admin/WP_tarteaucitron_Options.php:426
+msgid "Customize cookie name"
 msgstr "Personnaliser le nom des cookies"
 
-#: admin/WP_tarteaucitron_Options.php:450
+#: admin/WP_tarteaucitron_Options.php:490
 msgid "Change icon position"
 msgstr "Changer la position de l'icône"
 
-#: admin/WP_tarteaucitron_Options.php:467
+#: admin/WP_tarteaucitron_Options.php:507
 msgid "At the bottom right"
 msgstr "En bas à droite"
 
-#: admin/WP_tarteaucitron_Options.php:468
+#: admin/WP_tarteaucitron_Options.php:508
 msgid "At the bottom left"
 msgstr "En bas à gauche"
 
-#: admin/WP_tarteaucitron_Options.php:469
+#: admin/WP_tarteaucitron_Options.php:509
 msgid "At the top right"
 msgstr "En haut à droite"
 
-#: admin/WP_tarteaucitron_Options.php:470
+#: admin/WP_tarteaucitron_Options.php:510
 msgid "At the top left"
 msgstr "En haut à gauche"
 
-#: admin/WP_tarteaucitron_Options.php:493
+#: admin/WP_tarteaucitron_Options.php:533
 msgid "Hide credits"
 msgstr "Cacher les crédits"
 
-#: admin/WP_tarteaucitron_Options.php:548
+#: admin/WP_tarteaucitron_Options.php:584
 msgid "Remove options on uninstallation"
 msgstr "Supprimer les options à la désinstallation"
 
