@@ -128,7 +128,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 1.9.0
 	 *
 	 * @return void
 	 */
@@ -153,7 +153,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 1.9.0
 	 *
 	 * @param $input
 	 *
@@ -164,7 +164,7 @@ class WP_tarteaucitron_Options {
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 1.9.0
 	 *
 	 * @return void
 	 */
@@ -172,13 +172,13 @@ class WP_tarteaucitron_Options {
 		$html = '<p>';
 		$html .= '<label for="wp_tarteaucitron_tracking_code" hidden>wp_tarteaucitron_tracking_code</label>';
 		$html .= '<textarea id="wp_tarteaucitron_tracking_code" name="wp_tarteaucitron_tracking_code" rows="10" cols="100">';
-		$html .= esc_attr( $this->get_option_tracking_code() );
+		$html .= esc_textarea( $this->get_option_tracking_code() );
 		$html .= '</textarea></p>';
 		echo $html;
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 1.9.0
 	 *
 	 * @return mixed
 	 */
