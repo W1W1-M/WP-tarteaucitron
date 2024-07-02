@@ -100,6 +100,7 @@ class WP_tarteaucitron_Options {
 		( new WP_tarteaucitron_Option_Privacy_Policy_URL() )->setup_setting();
 		( new WP_tarteaucitron_Option_Hashtag() )->setup_setting();
 		( new WP_tarteaucitron_Option_Cookie_Name() )->setup_setting();
+		( new WP_tarteaucitron_Option_Icon_Position() )->setup_setting();
 		$this->setup_icon_position_setting();
 		$this->setup_remove_credit_setting();
 		$this->setup_remove_options_setting();
@@ -137,48 +138,6 @@ class WP_tarteaucitron_Options {
 	public function plugin_settings_link( $links ): array {
 		$plugin_setting_link[] = '<a href="' . admin_url( 'options-general.php?page=wp-tarteaucitron' ) . '">' . __('Settings') . '</a>';
 		return array_merge( $links, $plugin_setting_link );
-	}
-
-	/**
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	protected function setup_icon_position_setting(): void {
-		$form_id_setting_args = array(
-			'default' => ''
-		);
-		register_setting(
-			'wp_tarteaucitron_options',
-			'wp_tarteaucitron_icon_position',
-			$form_id_setting_args
-		);
-		add_settings_field(
-			'wp_tarteaucitron_icon_position_field',
-			__( 'Change icon position', 'wp-tarteaucitron' ), array( &$this,
-			'use_wp_icon_position_callback'
-		),
-			'wp-tarteaucitron',
-			'wp_tarteaucitron_settings_section'
-		);
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @return void
-	 */
-	public function use_wp_icon_position_callback(): void {
-		$option = get_option('wp_tarteaucitron_icon_position');
-		$html = '<p>';
-		$html .= '<select id="wp_tarteaucitron_icon_position" name="wp_tarteaucitron_icon_position" />';
-				$html .= '<option value="BottomRight"' . (($option == 'BottomRight') ? 'selected ' : '') . '> '. __( 'At the bottom right', 'wp-tarteaucitron' ) . '</option>';
-				$html .= '<option value="BottomLeft"' . (($option == 'BottomLeft') ? 'selected ' : '') . '> '. __( 'At the bottom left', 'wp-tarteaucitron' ) . '</option>';
-				$html .= '<option value="TopRight"' . (($option == 'TopRight') ? 'selected ' : '') . '> '. __( 'At the top right', 'wp-tarteaucitron' ) . '</option>';
-				$html .= '<option value="TopLeft"' . (($option == 'TopLeft') ? 'selected ' : '') . '> '. __( 'At the top left', 'wp-tarteaucitron' ) . '</option>';
-		$html .= '</select>';
-		$html .= '</p>';
-		echo $html;
 	}
 
 	/**
