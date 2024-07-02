@@ -95,10 +95,8 @@ class WP_tarteaucitron_Options {
 	 */
 	public function setup_settings(): void {
 		$this->setup_settings_section();
-		$tracking_code_setting = new WP_tarteaucitron_Option_Tracking_Code();
-		$tracking_code_setting->setup_setting();
-		$use_wp_privacy_policy_page = new WP_tarteaucitron_Option_Use_WP_Privacy_Policy_Page();
-		$use_wp_privacy_policy_page->setup_setting();
+		( new WP_tarteaucitron_Option_Tracking_Code() )->setup_setting();
+		( new WP_tarteaucitron_Option_Use_WP_Privacy_Policy_Page() )->setup_setting();
 		$this->setup_privacy_policy_url_setting();
 		$this->setup_hashtag_setting();
 		$this->setup_cookie_name_setting();
