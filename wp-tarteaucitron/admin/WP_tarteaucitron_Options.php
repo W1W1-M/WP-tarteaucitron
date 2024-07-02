@@ -95,7 +95,8 @@ class WP_tarteaucitron_Options {
 	 */
 	public function setup_settings(): void {
 		$this->setup_settings_section();
-		$this->setup_tracking_code_setting();
+		$tracking_code_setting = new WP_tarteaucitron_Option_Tracking_Code();
+		$tracking_code_setting->setup_setting();
 		$this->setup_use_wp_privacy_policy_page_setting();
 		$this->setup_privacy_policy_url_setting();
 		$this->setup_hashtag_setting();
@@ -125,65 +126,6 @@ class WP_tarteaucitron_Options {
 	 */
 	public function settings_section_callback(): void {
 		echo '<!-- Settings section -->';
-	}
-
-	/**
-	 * @since 1.9.0
-	 *
-	 * @return void
-	 */
-	protected function setup_tracking_code_setting(): void {
-		$form_id_setting_args = array(
-			'sanitize_callback' => array( &$this, 'sanitize_tracking_code_setting_input' ),
-			'default' => 'false'
-		);
-		register_setting(
-			'wp_tarteaucitron_options',
-			'wp_tarteaucitron_tracking_code',
-			$form_id_setting_args
-		);
-		add_settings_field(
-			'wp_tarteaucitron_tracking_code_field',
-			__( 'Tracking code', 'wp-tarteaucitron' ), array( &$this,
-			'tracking_code_field_callback'
-		),
-			'wp-tarteaucitron',
-			'wp_tarteaucitron_settings_section'
-		);
-	}
-
-	/**
-	 * @since 1.9.0
-	 *
-	 * @param $input
-	 *
-	 * @return string
-	 */
-	public function sanitize_tracking_code_setting_input( $input ): string {
-		return sanitize_textarea_field( $input );
-	}
-
-	/**
-	 * @since 1.9.0
-	 *
-	 * @return void
-	 */
-	public function tracking_code_field_callback(): void {
-		$html = '<p>';
-		$html .= '<label for="wp_tarteaucitron_tracking_code" hidden>wp_tarteaucitron_tracking_code</label>';
-		$html .= '<textarea id="wp_tarteaucitron_tracking_code" name="wp_tarteaucitron_tracking_code" rows="10" cols="100">';
-		$html .= esc_textarea( $this->get_option_tracking_code() );
-		$html .= '</textarea></p>';
-		echo $html;
-	}
-
-	/**
-	 * @since 1.9.0
-	 *
-	 * @return mixed
-	 */
-	public function get_option_tracking_code(): mixed {
-		return get_option( 'wp_tarteaucitron_tracking_code' );
 	}
 
 	/**
