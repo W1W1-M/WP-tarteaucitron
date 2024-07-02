@@ -195,8 +195,8 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	protected function enqueue_tarteaucitron_script_js(): void {
-		$privacy_policy_url = $this->wp_tarteaucitron_options->get_tatrteaucitron_privacy_policy_url();
-		$hashtag = get_option( 'wp_tarteaucitron_hashtag' ) ?: '#tarteaucitron';
+		$privacy_policy_url = WP_tarteaucitron_Option_Privacy_Policy_URL::get_option_value();
+		$hashtag = WP_tarteaucitron_Option_Hashtag::get_option_value();
 		$icon_position = get_option( 'wp_tarteaucitron_icon_position' ) ?: 'BottomRight';
 		$cookie_name = get_option( 'wp_tarteaucitron_cookie_name' ) ?: 'tarteaucitron';
 		$remove_credit = get_option( 'wp_tarteaucitron_remove_credit' ) ? 'true' : 'false';

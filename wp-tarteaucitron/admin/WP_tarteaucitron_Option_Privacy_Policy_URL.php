@@ -70,6 +70,23 @@ class WP_tarteaucitron_Option_Privacy_Policy_URL implements WP_tarteaucitron_Opt
 	 * @inheritDoc
 	 */
 	public static function get_option_value(): mixed {
-		return get_option( 'wp_tarteaucitron_privacy_policy_url' );
+		$default_privacy_policy_url = site_url();
+		if( WP_tarteaucitron_Option_Use_WP_Privacy_Policy_Page::get_option_value() ) {
+			$wp_privacy_policy_url = get_privacy_policy_url();
+			if( empty( $wp_privacy_policy_url ) ) {
+				trigger_error( 'WordPress privacy policy page not set' );
+				return $default_privacy_policy_url;
+			} else {
+				return $wp_privacy_policy_url;
+			}
+		} else {
+			$tarteaucitron_privacy_policy_url = get_option( 'wp_tarteaucitron_privacy_policy_url' );
+			if( empty( $tarteaucitron_privacy_policy_url ) ) {
+				trigger_error( 'tarteaucitron privacy policy URL not set' );
+				return $default_privacy_policy_url;
+			} else {
+				return $tarteaucitron_privacy_policy_url;
+			}
+		}
 	}
 }

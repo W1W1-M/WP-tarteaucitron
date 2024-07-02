@@ -98,7 +98,7 @@ class WP_tarteaucitron_Options {
 		( new WP_tarteaucitron_Option_Tracking_Code() )->setup_setting();
 		( new WP_tarteaucitron_Option_Use_WP_Privacy_Policy_Page() )->setup_setting();
 		( new WP_tarteaucitron_Option_Privacy_Policy_URL() )->setup_setting();
-		$this->setup_hashtag_setting();
+		( new WP_tarteaucitron_Option_Hashtag() )->setup_setting();
 		$this->setup_cookie_name_setting();
 		$this->setup_icon_position_setting();
 		$this->setup_remove_credit_setting();
@@ -137,84 +137,6 @@ class WP_tarteaucitron_Options {
 	public function plugin_settings_link( $links ): array {
 		$plugin_setting_link[] = '<a href="' . admin_url( 'options-general.php?page=wp-tarteaucitron' ) . '">' . __('Settings') . '</a>';
 		return array_merge( $links, $plugin_setting_link );
-	}
-
-	/**
-	 * @since 1.0.0
-	 *
-	 * @return string
-	 */
-	public function get_tatrteaucitron_privacy_policy_url(): string {
-		$default_privacy_policy_url = site_url();
-		if( WP_tarteaucitron_Option_Use_WP_Privacy_Policy_Page::get_option_value() ) {
-			$wp_privacy_policy_url = get_privacy_policy_url();
-			if( empty( $wp_privacy_policy_url ) ) {
-				trigger_error( 'WordPress privacy policy page not set' );
-				return $default_privacy_policy_url;
-			} else {
-				return $wp_privacy_policy_url;
-			}
-		} else {
-			$tarteaucitron_privacy_policy_url = WP_tarteaucitron_Option_Privacy_Policy_URL::get_option_value();
-			if( empty( $tarteaucitron_privacy_policy_url ) ) {
-				trigger_error( 'tarteaucitron privacy policy URL not set' );
-				return $default_privacy_policy_url;
-			} else {
-				return $tarteaucitron_privacy_policy_url;
-			}
-		}
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @return void
-	 */
-	protected function setup_hashtag_setting(): void {
-		$form_id_setting_args = array(
-			'sanitize_callback' => array( &$this, 'sanitize_hashtag_input' ),
-			'default' => ''
-		);
-		register_setting(
-			'wp_tarteaucitron_options',
-			'wp_tarteaucitron_hashtag',
-			$form_id_setting_args
-		);
-		add_settings_field(
-			'wp_tarteaucitron_hashtag_field',
-			__( 'Customize the hashtag', 'wp-tarteaucitron' ), array( &$this,
-			'use_wp_hashtag_callback'
-		),
-			'wp-tarteaucitron',
-			'wp_tarteaucitron_settings_section'
-		);
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @param $input
-	 *
-	 * @return string
-	 */
-	public function sanitize_hashtag_input( $input ): string {
-		$sanitized_input = $this->wp_replace($input);
-		return ( $sanitized_input == '' ) ? '#tarteaucitron' : '#' . $sanitized_input;
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @return void
-	 */
-	public function use_wp_hashtag_callback(): void {
-		get_option('wp_tarteaucitron_hashtag');
-		$html = '<p>';
-		$html .= '<input type="text" id="wp_tarteaucitron_hashtag" name="wp_tarteaucitron_hashtag" value="';
-		$html .= get_option('wp_tarteaucitron_hashtag');
-		$html .= '"';
-		$html .= '/></p>';
-		echo $html;
 	}
 
 	/**
