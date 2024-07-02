@@ -23,7 +23,7 @@ wp_tarteaucitron_uninstall();
 function wp_tarteaucitron_uninstall(): void {
 	try {
 		wordpress_plugin_uninstall_called();
-		if( WP_tarteaucitron_Option_Remove_Options::get_option_value() == 'true' ) {
+		if( get_option( 'wp_tarteaucitron_remove_options' ) == 'true' ) {
 			delete_options();
 			trigger_error( 'The options have been removed' );
 		}
