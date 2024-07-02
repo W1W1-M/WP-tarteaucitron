@@ -6,8 +6,8 @@ The [tarteaucitron cookie manager](https://tarteaucitron.io/) packaged in a Word
 ![WP-tarteaucitron screenshot](wp-tarteaucitron%20screenshot%20FR.png "WP-tarteaucitron screenshot")
 
 ## Prerequisites
-- PHP 8.0 
-- WordPress 5.9
+- PHP 8.1 
+- WordPress 6.3
 
 ## Installation
 Download the latest WPtarteaucitron.zip package from [releases](https://git.manche.io/wordpress/wptarteaucitron/-/releases) and install it via WordPress plugin admin menu.
