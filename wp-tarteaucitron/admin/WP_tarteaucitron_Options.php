@@ -101,8 +101,7 @@ class WP_tarteaucitron_Options {
 		( new WP_tarteaucitron_Option_Hashtag() )->setup_setting();
 		( new WP_tarteaucitron_Option_Cookie_Name() )->setup_setting();
 		( new WP_tarteaucitron_Option_Icon_Position() )->setup_setting();
-		$this->setup_icon_position_setting();
-		$this->setup_remove_credit_setting();
+		( new WP_tarteaucitron_Option_Remove_Credit() )->setup_setting();
 		$this->setup_remove_options_setting();
 	}
 
@@ -138,57 +137,6 @@ class WP_tarteaucitron_Options {
 	public function plugin_settings_link( $links ): array {
 		$plugin_setting_link[] = '<a href="' . admin_url( 'options-general.php?page=wp-tarteaucitron' ) . '">' . __('Settings') . '</a>';
 		return array_merge( $links, $plugin_setting_link );
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @return void
-	 */
-	protected function setup_remove_credit_setting(): void {
-		$form_id_setting_args = array(
-			'sanitize_callback' => array( &$this, 'sanitize_checkbox_input' ),
-			'default' => ''
-		);
-		register_setting(
-			'wp_tarteaucitron_options',
-			'wp_tarteaucitron_remove_credit',
-			$form_id_setting_args
-		);
-		add_settings_field(
-			'wp_tarteaucitron_remove_credit_field',
-			__( 'Hide credits', 'wp-tarteaucitron' ), array( &$this,
-			'use_wp_remove_credit_callback'
-		),
-			'wp-tarteaucitron',
-			'wp_tarteaucitron_settings_section'
-		);
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @param $input
-	 *
-	 * @return bool
-	 */
-	public function sanitize_checkbox_input( $input ): bool {
-		return $input == 'on';
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @return void
-	 */
-	public function use_wp_remove_credit_callback(): void {
-		$html = '<p>';
-		$html .= '<input type="checkbox" id="wp_tarteaucitron_remove_credit" name="wp_tarteaucitron_remove_credit"';
-		if(get_option( 'wp_tarteaucitron_remove_credit' )){
-			$html .= 'value="on" checked';
-		}
-		$html .= '/></p>';
-		echo $html;
 	}
 
 	/**

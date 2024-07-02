@@ -199,7 +199,7 @@ class WP_tarteaucitron_Setup {
 		$hashtag = WP_tarteaucitron_Option_Hashtag::get_option_value();
 		$cookie_name = WP_tarteaucitron_Option_Cookie_Name::get_option_value();
 		$icon_position = WP_tarteaucitron_Option_Icon_Position::get_option_value();
-		$remove_credit = get_option( 'wp_tarteaucitron_remove_credit' ) ? 'true' : 'false';
+		$remove_credit = WP_tarteaucitron_Option_Remove_Credit::get_option_value();
 		$javascript = 'tarteaucitron.init({"privacyUrl": "' . $privacy_policy_url . '", "hashtag": "' . $hashtag . '", "cookieName": "' . $cookie_name . '", "iconPosition": "' . $icon_position . '", "removeCredit": ' . $remove_credit . '});';
 		wp_add_inline_script( WP_TARTEAUCITRON_JS, $javascript );
 	}
