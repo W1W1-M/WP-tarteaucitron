@@ -72,6 +72,7 @@ function wp_tarteaucitron_require_once(): void {
 	require_once $plugin_dir_path . 'admin/WP_tarteaucitron_Option.php';
 	require_once $plugin_dir_path . 'admin/WP_tarteaucitron_Option_Tracking_Code.php';
 	require_once $plugin_dir_path . 'admin/WP_tarteaucitron_Option_Use_WP_Privacy_Policy_Page.php';
+	require_once $plugin_dir_path . 'admin/WP_tarteaucitron_Option_Privacy_Policy_URL.php';
 }
 
 ?>
