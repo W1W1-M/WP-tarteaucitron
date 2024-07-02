@@ -99,7 +99,7 @@ class WP_tarteaucitron_Options {
 		( new WP_tarteaucitron_Option_Use_WP_Privacy_Policy_Page() )->setup_setting();
 		( new WP_tarteaucitron_Option_Privacy_Policy_URL() )->setup_setting();
 		( new WP_tarteaucitron_Option_Hashtag() )->setup_setting();
-		$this->setup_cookie_name_setting();
+		( new WP_tarteaucitron_Option_Cookie_Name() )->setup_setting();
 		$this->setup_icon_position_setting();
 		$this->setup_remove_credit_setting();
 		$this->setup_remove_options_setting();
@@ -137,71 +137,6 @@ class WP_tarteaucitron_Options {
 	public function plugin_settings_link( $links ): array {
 		$plugin_setting_link[] = '<a href="' . admin_url( 'options-general.php?page=wp-tarteaucitron' ) . '">' . __('Settings') . '</a>';
 		return array_merge( $links, $plugin_setting_link );
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @return void
-	 */
-	protected function setup_cookie_name_setting(): void {
-		$form_id_setting_args = array(
-			'sanitize_callback' => array( &$this, 'sanitize_cookie_name_input' ),
-			'default' => ''
-		);
-		register_setting(
-			'wp_tarteaucitron_options',
-			'wp_tarteaucitron_cookie_name',
-			$form_id_setting_args
-		);
-		add_settings_field(
-			'wp_tarteaucitron_cookie_name_field',
-			__( 'Customize cookie name', 'wp-tarteaucitron' ), array( &$this,
-			'use_wp_cookie_name_callback'
-		),
-			'wp-tarteaucitron',
-			'wp_tarteaucitron_settings_section'
-		);
-	}
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @param $input
-	 *
-	 * @return string
-	 */
-	public function sanitize_cookie_name_input( $input ): string {
-		$sanitized_input = $this->wp_replace($input);
-		return ($sanitized_input == '') ? 'tarteaucitron' : $sanitized_input;
-	}
-
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @param $input
-	 *
-	 * @return string
-	 */
-	public function wp_replace( $input ): string {
-		return preg_replace('/[^A-Za-z0-9\-]/', '', sanitize_text_field( $input ) );
-	}
-
-
-	/**
-	 * @since 1.7.0
-	 *
-	 * @return void
-	 */
-	public function use_wp_cookie_name_callback(): void {
-		get_option( 'wp_tarteaucitron_cookie_name' );
-		$html = '<p>';
-		$html .= '<input type="text" id="wp_tarteaucitron_cookie_name" name="wp_tarteaucitron_cookie_name" value="';
-		$html .= get_option( 'wp_tarteaucitron_cookie_name' );
-		$html .= '"';
-		$html .= '/></p>';
-		echo $html;
 	}
 
 	/**
