@@ -77,6 +77,7 @@ function wp_tarteaucitron_require_once(): void {
 	require_once $plugin_dir_path . 'admin/WP_tarteaucitron_Option_Cookie_Name.php';
 	require_once $plugin_dir_path . 'admin/WP_tarteaucitron_Option_Icon_Position.php';
 	require_once $plugin_dir_path . 'admin/WP_tarteaucitron_Option_Remove_Credit.php';
+	require_once $plugin_dir_path . 'admin/WP_tarteaucitron_Option_Remove_Options.php';
 }
 
 ?>
