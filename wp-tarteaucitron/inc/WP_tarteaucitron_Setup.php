@@ -75,23 +75,16 @@ class WP_tarteaucitron_Setup {
 	 * @return void
 	 */
 	public function plugin_activate(): void {
-		add_option('wp_tarteaucitron_just_activated',true );
+		// Add code to be run on plugin activation
 	}
 
 	/**
 	 * @since 1.0.0
 	 *
-	 * @throws Exception
-	 *
 	 * @return void
 	 */
 	public function plugin_deactivate(): void {
-		try {
-
-		} catch( Exception $exception ) {
-			error_log( $exception->getMessage() );
-			throw $exception;
-		}
+		// Add code to be run on plugin deactivation
 	}
 
 	/**
@@ -104,22 +97,13 @@ class WP_tarteaucitron_Setup {
 	protected function actions(): void {
 		try {
 			add_action( 'init', array( $this, 'load_textdomain' ), 10, 0 );
-			add_action( 'admin_init', array( $this,'just_activated_setup' ), 10, 0 );
 			add_action( 'plugins_loaded', array( $this->wp_tarteaucitron_options,'init' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 10, 0 );
 			add_action( 'wp_enqueue_scripts', array( $this,'check_scripts_enqueued' ), 99, 0 );
-			add_action( 'add_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this,
-				'setup_tarteaucitron_script_js'
-			) );
-			add_action( 'update_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this,
-				'setup_tarteaucitron_script_js'
-			) );
-			add_action( 'add_option_wp_tarteaucitron_privacy_policy_url', array( $this,
-				'setup_tarteaucitron_script_js'
-			) );
-			add_action( 'update_option_wp_tarteaucitron_privacy_policy_url', array( $this,
-				'setup_tarteaucitron_script_js'
-			) );
+			add_action( 'add_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this, 'setup_tarteaucitron_script_js' ) );
+			add_action( 'update_option_wp_tarteaucitron_use_wp_privacy_policy_page', array( $this, 'setup_tarteaucitron_script_js' ) );
+			add_action( 'add_option_wp_tarteaucitron_privacy_policy_url', array( $this, 'setup_tarteaucitron_script_js' ) );
+			add_action( 'update_option_wp_tarteaucitron_privacy_policy_url', array( $this, 'setup_tarteaucitron_script_js' ) );
 			add_action( 'add_option_wp_tarteaucitron_hashtag', array( $this, 'setup_tarteaucitron_script_js' ) );
 			add_action( 'update_option_wp_tarteaucitron_hashtag', array( $this, 'setup_tarteaucitron_script_js' ) );
 			add_action( 'add_option_wp_tarteaucitron_name', array( $this, 'setup_tarteaucitron_script_js' ) );
@@ -148,32 +132,9 @@ class WP_tarteaucitron_Setup {
 	 *
 	 * @return void
 	 */
-	public function just_activated_setup(): void {
-		if( current_user_can( 'activate_plugins' ) ) {
-			if( get_option('wp_tarteaucitron_just_activated' ) ) {
-				delete_option( 'wp_tarteaucitron_just_activated' );
-				try {
-
-				} catch ( Exception $exception ) {
-					trigger_error( $exception->getMessage() );
-					error_log( $exception->getMessage() );
-				}
-			}
-		} else {
-			trigger_error( 'User is not authorized to run activation setup' );
-		}
-
-	}
-
-	/**
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
 	public function load_scripts(): void {
 		try {
-			$tarteaucitron_version = $this->tarteaucitron_script_version();
-			$this->enqueue_tarteaucitron_js( $tarteaucitron_version );
+			$this->enqueue_tarteaucitron_js( $this->tarteaucitron_script_version() );
 			$this->enqueue_tarteaucitron_script_js();
 			$this->enqueue_tracking_code_script_js();
 		} catch ( Exception $exception ) {
@@ -244,6 +205,16 @@ class WP_tarteaucitron_Setup {
 	}
 
 	/**
+	 * @since 1.9.0
+	 *
+	 * @return void
+	 */
+	protected function enqueue_tracking_code_script_js(): void {
+		$tracking_code_script = $this->wp_tarteaucitron_options->get_option_tracking_code();
+		wp_add_inline_script( WP_TARTEAUCITRON_JS, $tracking_code_script );
+	}
+
+	/**
 	 * @since 1.0.0
 	 *
 	 * @return bool
@@ -286,16 +257,6 @@ class WP_tarteaucitron_Setup {
 			error_log( $exception->getMessage() );
 			throw $exception;
 		}
-	}
-
-	/**
-	 * @since 1.9.0
-	 *
-	 * @return void
-	 */
-	public function enqueue_tracking_code_script_js(): void {
-		$tracking_code_script = $this->wp_tarteaucitron_options->get_option_tracking_code();
-		wp_add_inline_script( WP_TARTEAUCITRON_JS, $tracking_code_script );
 	}
 
 }
